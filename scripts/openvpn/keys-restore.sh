@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ "${1}" = "" ] ;then
-    host=${SIMPLE_OP_SSH_HOST}
+    host=${EASY_OP_SSH_HOST}
 else
     host=${1}
 fi

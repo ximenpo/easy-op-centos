@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# format data disk and mount to /data
+DATA_DIR=/data
+for label in b c d e f g h i j k l m n o p q r s t u v w x y z ;
+do
+    fdisk -l | grep /dev/xvd${label} > /dev/null && {
+        df | grep /dev/xvd${label}1 || {
+            fdisk /dev/xvd${label} <<EOF
+n
+p
+1
+
+
+wq
+EOF
+            mkfs.ext3 /dev/xvd${label}1
+            mkdir   -p  ${DATA_DIR}
+            cat /etc/fstab | grep ${DATA_DIR} > /dev/null || echo /dev/xvd${label}1 /data ext3 defaults,noatime,nodiratime,nodev 0 0 >> /etc/fstab
+            findmnt -m --target ${DATA_DIR} > /dev/null   || mount -a
+            break   1
+        }
+        break   1
+    }
+done
+
+exit    0

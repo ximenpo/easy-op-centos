@@ -71,34 +71,34 @@
 示例
 ```
 #未设置时执行
-source scripts/run.sh	myzoo.cn	echo 'hello~'
+./scripts/run	myzoo.cn	echo 'hello~'
 #设置默认服务器后执行
 source scripts/set-default-host.sh myzoo.cn
-source scripts/run.sh echo 'hello~'
+./scripts/run   echo 'hello~'
 ```
 
 #### run
 
 功能：	在服务器上执行命令
-备注：	
-示例：	
+备注：
+示例：
 ```
-source scripts/run.sh	myzoo.cn	echo 'hello~'
+./scripts/run	myzoo.cn	echo 'hello~'
 #或
-source scripts/set-default-host.sh myzoo.cn
-source scripts/run.sh echo 'hello~'
+source  scripts/set-default-host.sh myzoo.cn
+./scripts/run echo 'hello~'
 ```
 
 #### run-script
 
 功能：	在服务器上执行命令
-备注：	
-示例：	
+备注：
+示例：
 ```
-source scripts/run-script.sh	myzoo.cn	files/echo-helloworld.sh
+./scripts/run-script	myzoo.cn	files/echo-helloworld.sh
 #或
-source scripts/set-default-host.sh myzoo.cn
-source scripts/run-script.sh	files/echo-helloworld.sh
+source  scripts/set-default-host.sh myzoo.cn
+./scripts/run-script	files/echo-helloworld.sh
 ```
 
 ### scripts/etc
@@ -125,10 +125,11 @@ source scripts/run-script.sh	files/echo-helloworld.sh
 
 更新OpenVPN配置文件：
 
-| 文件          | 本地位置                                | 目标位置                     |
-| ----------- | ----------------------------------- | ------------------------ |
+| 文件          | 本地位置                                  | 目标位置                       |
+| ----------- | ------------------------------------- | -------------------------- |
 | server.conf | `secret/myzoo.cn/openvpn/server.conf` | `/etc/openvpn/server.conf` |
-| vars        | `secret/myzoo.cn/openvpn/vars`        | `easy-rsa`目录下的`vars`文件       |
+| server.conf | `secret/myzoo.cn/openvpn/client.conf` |                            |
+| vars        | `secret/myzoo.cn/openvpn/vars`        | `easy-rsa`目录下的`vars`文件     |
 
 #### keys-backup
 
@@ -153,11 +154,11 @@ source scripts/run-script.sh	files/echo-helloworld.sh
 #### install-openvpn.sh
 
 安装OpenVPN系统，执行步骤如下：
-1. `source script/run-script.sh myzoo.cn files/install-openvpn.sh`
-2. `source script/openvpn/conf-update.sh myzoo.cn`
-3. `source script/run-script.sh myzoo.cn files/install-openvpn.sh`
+1. `./script/run-script myzoo.cn files/install-openvpn.sh`
+2. `./script/openvpn/conf-update myzoo.cn`
+3. `./script/run-script myzoo.cn files/install-openvpn.sh`
 
-#### echo-helloworld.sh
+<!-- #### echo-helloworld.sh -->
 
 输出`hello,world~`，供测试用
 

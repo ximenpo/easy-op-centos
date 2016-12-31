@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+INSTALL_ROOT=/home/git
+
+ssh     ${host}    <<EOF
+
+rm  -rf ${INSTALL_ROOT}/gogs/custom
+
+which systemctl > /dev/null && {
+        systemctl   status gogs.service > /dev/null &&  {
+            systemctl   stop        gogs.service
+            systemctl   disable     gogs.service
+        }
+        systemctl   enable  ${INSTALL_ROOT}/gogs/scripts/systemd/gogs.service
+        systemctl   start   gogs.service
+        echo        ----------------------
+        systemctl   status  gogs.service
+    }
+which systemctl > /dev/null || {
+        cp          -f      ${INSTALL_ROOT}/gogs/scripts/init/centos/gogs  /etc/init.d/
+        chomod      755     /etc/init.d/gogs
+        chkconfig   gogs    on
+        service     gogs    restart
+        echo        ----------------------
+        service     gogs    status
+    }
+EOF

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+INSTALL_ROOT=/home/git
+
+DOWNLOAD_URL='http://7d9nal.com2.z0.glb.qiniucdn.com/gogs_v0.9.113_linux_amd64.tar.gz'
+DWONLOAD_FILE='gogs_v0.9.113_linux_amd64.tar.gz'
+
+ssh     ${host}    <<EOF
+id      -u      git >/dev/null  ||  useradd -m git
+mkdir   -p      ${INSTALL_ROOT}
+mkdir   -p      /data/gogs/data
+mkdir   -p      /data/gogs/repo
+mkdir   -p      /data/gogs/log
+chown   -fR     git:git             /data/gogs
+cd              ${INSTALL_ROOT}
+curl    -o      ${DWONLOAD_FILE}    ${DOWNLOAD_URL}
+rm      -rf     ${INSTALL_ROOT}/gogs
+tar     -zxf    ${DWONLOAD_FILE}
+EOF
+
+./scripts/gogs/conf-update  ${host}

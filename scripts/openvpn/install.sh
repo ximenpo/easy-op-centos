@@ -7,5 +7,5 @@ else
 fi
 
 bash    scripts/run-script.sh   ${host}   files/openvpn/install.sh
-bash    scripts/conf-update.sh  ${host}
+bash    scripts/openvpn/conf-update.sh  ${host}
 bash    scripts/run-script.sh   ${host}   files/openvpn/install.sh

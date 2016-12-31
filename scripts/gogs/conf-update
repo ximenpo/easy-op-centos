@@ -8,7 +8,7 @@ fi
 
 INSTALL_ROOT=/home/git
 
-scp -rp secret/myzoo.cn/gogs/custom/     ${host}:${INSTALL_ROOT}/gogs/
+scp -rp secret/${host}/gogs/custom/     ${host}:${INSTALL_ROOT}/gogs/
 
 ssh     ${host}    <<EOF
 which systemctl > /dev/null && {

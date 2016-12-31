@@ -12,6 +12,7 @@ DOWNLOAD_URL='http://7d9nal.com2.z0.glb.qiniucdn.com/gogs_v0.9.113_linux_amd64.t
 DWONLOAD_FILE='gogs_v0.9.113_linux_amd64.tar.gz'
 
 ssh     ${host}    <<EOF
+yum     install -y  git
 id      -u      git >/dev/null  ||  useradd -m git
 mkdir   -p      ${INSTALL_ROOT}
 mkdir   -p      /data/gogs/data

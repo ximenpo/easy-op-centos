@@ -34,7 +34,8 @@ if [ -e /etc/openvpn/server.conf ] ;then
     which systemctl > /dev/null 2>&1  &&  {
         systemctl -f    enable      openvpn@server.service
         systemctl       restart     openvpn@server.service
-    }  ||  {
+    }
+    which systemctl > /dev/null 2>&1  ||  {
         chkconfig   openvpn on
         service     openvpn restart
     }

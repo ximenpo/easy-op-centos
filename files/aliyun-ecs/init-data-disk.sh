@@ -2,10 +2,15 @@
 
 # format data disk and mount to /data
 DATA_DIR=/data
+findmnt -m --target ${DATA_DIR} > /dev/null && {
+    echo    ${DATA_DIR} has been mounted
+}
+
 for label in b c d e f g h i j k l m n o p q r s t u v w x y z ;
 do
     fdisk -l | grep /dev/xvd${label} > /dev/null && {
         df | grep /dev/xvd${label}1 || {
+            echo    found /dev/xvd${label}
             fdisk /dev/xvd${label} <<EOF
 n
 p
@@ -20,7 +25,6 @@ EOF
             findmnt -m --target ${DATA_DIR} > /dev/null   || mount -a
             break   1
         }
-        break   1
     }
 done
 

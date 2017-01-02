@@ -16,5 +16,5 @@ if [ "$easyrsa_dir" = "" ] ;then
     echo    ERROR: easy-rsa directory not found
 else
     ssh ${host} "cd ${easyrsa_dir}; source vars;./clean-all"
-    scp -rp servers/${host}/openvpn/keys/    ${host}:$easyrsa_dir/
+    ./scripts/sync  servers/${host}/openvpn/keys/    ${host}:$easyrsa_dir/keys/
 fi

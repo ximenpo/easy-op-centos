@@ -11,6 +11,8 @@ fi
 ssh     ${host}    '
 set -e
 
+id      -u      nginx >/dev/null    ||  useradd -M -s /bin/nologin nginx
+
 yum repolist enabled    |   grep "Official OpenResty Repository" > /dev/null    || {
     yum info    installed   yum-utils > /dev/null    ||
         yum     install -y  yum-utils
@@ -23,6 +25,6 @@ yum --disablerepo="*" --enablerepo="openresty"  info installed openresty > /dev/
 mkdir   -p      /data/openresty/service
 '
 
-scp -rp files/openresty/service     ${host}://data/openresty/
+./scripts/sync  files/openresty/service/     ${host}://data/openresty/service/
 
 ./scripts/openresty/conf-update     ${host}

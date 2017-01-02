@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+SYNC_SRC=${1}
+shift
+SYNC_DEST=${1}
+shift
+
+rsync   -avz -e 'ssh'                                       \
+        --delete                                            \
+        --exclude=".DS_Store"                               \
+        --exclude=".git"                                    \
+        --exclude=".gitignore"                              \
+        ${@}                                                \
+        ${SYNC_SRC}                                         \
+        ${SYNC_DEST} 

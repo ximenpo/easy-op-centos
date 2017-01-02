@@ -10,7 +10,7 @@ fi
 
 INSTALL_ROOT=/home/git
 
-scp -rp servers/${host}/gogs/custom/     ${host}:${INSTALL_ROOT}/gogs/
+./scripts/sync  servers/${host}/gogs/custom/     ${host}:${INSTALL_ROOT}/gogs/custom/
 
 ssh     ${host}    <<EOF
 which systemctl > /dev/null && {
@@ -19,7 +19,7 @@ which systemctl > /dev/null && {
         #    systemctl   disable     gogs.service
         #}
         systemctl   enable  ${INSTALL_ROOT}/gogs/scripts/systemd/gogs.service
-        systemctl   start   gogs.service
+        systemctl   restart gogs.service
         echo        ----------------------
         systemctl   status  gogs.service
     }

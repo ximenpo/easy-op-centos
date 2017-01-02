@@ -15,11 +15,11 @@ done
 if [ "$easyrsa_dir" = "" ] ;then
     echo    ERROR: easy-rsa directory not found
 else
-    scp -rp servers/${host}/openvpn/vars    ${host}:$easyrsa_dir/
+    ./scripts/sync  servers/${host}/openvpn/vars    ${host}:$easyrsa_dir/
 fi
 
-scp -rp servers/${host}/openvpn/server.conf ${host}:/etc/openvpn/
-ssh     ${host}    '
+./scripts/sync  servers/${host}/openvpn/server.conf ${host}:/etc/openvpn/
+ssh             ${host}    '
 which systemctl > /dev/null                         \
     && systemctl restart "openvpn@server.service"   \
     || service openvpn restart                      \

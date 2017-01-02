@@ -10,7 +10,7 @@ fi
 
 DATA_DIR=/data/openresty
 
-scp -rp servers/${host}/openresty/conf/      ${host}:${DATA_DIR}/
+./scripts/sync  servers/${host}/openresty/conf/      ${host}:${DATA_DIR}/conf/
 
 # start service
 ssh     ${host}    <<EOF
@@ -20,7 +20,7 @@ which systemctl > /dev/null && {
         #    systemctl   disable     openresty.service
         #}
         systemctl   enable      ${DATA_DIR}/service/openresty.service
-        systemctl   start       openresty.service
+        systemctl   restart     openresty.service
         echo        ----------------------
         systemctl   status      openresty.service
     }

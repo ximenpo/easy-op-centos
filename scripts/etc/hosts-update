@@ -8,4 +8,4 @@ else
     host=${1}
 fi
 
-scp -rp servers/${host}/etc/hosts    ${host}:/etc/
+./scripts/sync  servers/${host}/etc/hosts    ${host}:/etc/

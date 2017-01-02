@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
+set -e
+
 ssh ${EASY_OP_SSH_HOST} ${@}

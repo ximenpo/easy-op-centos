@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 if [ "${2}" = "" ] ;then
     host=${EASY_OP_SSH_HOST}
     script=${1}

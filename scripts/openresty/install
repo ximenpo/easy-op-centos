@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# for yum-config-manager
+set -e
 
 if [ "${1}" = "" ] ;then
     host=${EASY_OP_SSH_HOST}
@@ -9,6 +9,8 @@ else
 fi
 
 ssh     ${host}    '
+set -e
+
 yum repolist enabled    |   grep "Official OpenResty Repository" > /dev/null    || {
     yum info    installed   yum-utils > /dev/null    ||
         yum     install -y  yum-utils

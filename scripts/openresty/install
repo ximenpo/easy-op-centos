@@ -8,7 +8,9 @@ else
     host=${1}
 fi
 
-ssh     ${host}    '
+CONF_DIR=/etc/openresty
+
+ssh     ${host}    <<EOF
 set -e
 
 id      -u      nginx >/dev/null    ||  useradd -M -s /bin/nologin nginx
@@ -22,9 +24,9 @@ yum repolist enabled    |   grep "Official OpenResty Repository" > /dev/null    
 yum --disablerepo="*" --enablerepo="openresty"  info installed openresty > /dev/null    ||
     yum --disablerepo="*" --enablerepo="openresty"  install -y openresty
 
-mkdir   -p      /data/openresty/service
-'
+mkdir   -p      ${CONF_DIR}/service
+EOF
 
-./scripts/sync  files/openresty/service/     ${host}://data/openresty/service/
+./scripts/sync  files/openresty/service/     ${host}:${CONF_DIR}/service/
 
 ./scripts/openresty/conf-update     ${host}

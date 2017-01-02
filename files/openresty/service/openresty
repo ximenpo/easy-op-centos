@@ -5,7 +5,7 @@
 # pidfile: /var/run/nginx.pid
 # config: /usr/local/nginx/conf/nginx.conf
 nginxd=/usr/bin/openresty
-nginx_config=/data/openresty/conf/openresty.conf
+nginx_config=/etc/openresty/conf/openresty.conf
 nginx_pid=/var/run/openresty.pid
 RETVAL=0
 prog="openresty"

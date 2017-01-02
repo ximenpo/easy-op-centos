@@ -4,8 +4,8 @@ After=network.target remote-fs.target nss-lookup.target
 
 [Service]
 Type=forking
-ExecStartPre=/usr/bin/openresty -t  -c  /data/openresty/conf/openresty.conf
-ExecStart=/usr/bin/openresty        -c  /data/openresty/conf/openresty.conf
+ExecStartPre=/usr/bin/openresty -t  -c  /etc/openresty/conf/openresty.conf
+ExecStart=/usr/bin/openresty        -c  /etc/openresty/conf/openresty.conf
 ExecStop=/usr/bin/openresty -s quit
 ExecReload=/usr/bin/openresty -s reload
 

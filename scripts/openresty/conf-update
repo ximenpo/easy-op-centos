@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+DATA_DIR=/data/openresty
+
+scp -rp servers/${host}/openresty/conf/      ${host}:${DATA_DIR}/
+
+# start service
+ssh     ${host}    <<EOF
+which systemctl > /dev/null && {
+        #systemctl   status openresty.service > /dev/null &&  {
+        #    systemctl   stop        openresty.service
+        #    systemctl   disable     openresty.service
+        #}
+        systemctl   enable      ${DATA_DIR}/service/openresty.service
+        systemctl   start       openresty.service
+        echo        ----------------------
+        systemctl   status      openresty.service
+    }
+which systemctl > /dev/null || {
+        cp          -f          ${DATA_DIR}/service/openresty  /etc/init.d/
+        chomod      755         /etc/init.d/openresty
+        chkconfig   openresty   on
+        service     openresty   restart
+        echo        ----------------------
+        service     openresty   status
+    }
+EOF

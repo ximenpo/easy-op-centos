@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# for yum-config-manager
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+ssh     ${host}    '
+yum repolist enabled    |   grep "Official OpenResty Repository" > /dev/null    || {
+    yum info    installed   yum-utils > /dev/null    ||
+        yum     install -y  yum-utils
+    yum-config-manager --add-repo https://openresty.org/yum/centos/OpenResty.repo
+}
+
+yum --disablerepo="*" --enablerepo="openresty"  info installed openresty > /dev/null    ||
+    yum --disablerepo="*" --enablerepo="openresty"  install -y openresty
+
+mkdir   -p      /data/openresty/service
+'
+
+scp -rp files/openresty/service     ${host}://data/openresty/
+
+./scripts/openresty/conf-update     ${host}

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ -e "servers/${1}/" ] ;then
+    host=${1}
+    shift
+else
+    host=${EASY_OP_SSH_HOST}
+fi
+
+ssh ${host} "yum --disablerepo='*' --enablerepo=webtatic install -y ${@}"

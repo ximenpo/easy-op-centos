@@ -6,12 +6,20 @@ if [ "${1}" = "" ] ;then
     host=${EASY_OP_SSH_HOST}
 else
     host=${1}
+    DOWNLOAD_URL='http://7d9nal.com2.z0.glb.qiniucdn.com/gogs_v0.9.113_linux_amd64.tar.gz'
+    echo ${2} | grep '\.tar\.gz$'   && {
+        host=${1}
+        DOWNLOAD_URL=${2}
+    }
+    echo ${1} | grep '\.tar\.gz$'   && {
+        host=${EASY_OP_SSH_HOST}
+        DOWNLOAD_URL=${1}
+    }
 fi
 
 INSTALL_ROOT=/home/git
 
-DOWNLOAD_URL='http://7d9nal.com2.z0.glb.qiniucdn.com/gogs_v0.9.113_linux_amd64.tar.gz'
-DWONLOAD_FILE='gogs_v0.9.113_linux_amd64.tar.gz'
+DWONLOAD_FILE=${DOWNLOAD_URL##*/}
 
 ssh     ${host}    <<EOF
 yum     install -y  git

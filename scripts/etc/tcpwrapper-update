@@ -6,4 +6,4 @@ else
     host=${1}
 fi
 
-scp -rp secret/${host}/etc/hosts.*  ${host}:/etc/
+scp -rp servers/${host}/etc/hosts.*  ${host}:/etc/

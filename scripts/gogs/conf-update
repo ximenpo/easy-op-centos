@@ -8,14 +8,14 @@ fi
 
 INSTALL_ROOT=/home/git
 
-scp -rp secret/${host}/gogs/custom/     ${host}:${INSTALL_ROOT}/gogs/
+scp -rp servers/${host}/gogs/custom/     ${host}:${INSTALL_ROOT}/gogs/
 
 ssh     ${host}    <<EOF
 which systemctl > /dev/null && {
-        systemctl   status gogs.service > /dev/null &&  {
-            systemctl   stop        gogs.service
-            systemctl   disable     gogs.service
-        }
+        #systemctl   status gogs.service > /dev/null &&  {
+        #    systemctl   stop        gogs.service
+        #    systemctl   disable     gogs.service
+        #}
         systemctl   enable  ${INSTALL_ROOT}/gogs/scripts/systemd/gogs.service
         systemctl   start   gogs.service
         echo        ----------------------

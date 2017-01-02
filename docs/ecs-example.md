@@ -19,7 +19,7 @@ host myzoo.cn
 
 ##### OpenVPN配置
 
-在`secret/myzoo.cn/openvpn/`下配置OpenVPN配置文件（参考`examples/openvpn/`下的对应文件）
+在`servers/myzoo.cn/openvpn/`下配置OpenVPN配置文件（参考`examples/openvpn/`下的对应文件）
 
 | 文件          | 说明              | 备注   |
 | ----------- | --------------- | ---- |
@@ -29,7 +29,7 @@ host myzoo.cn
 
 ##### hosts.allow/hosts.deny配置
 
-在`secret/myzoo.cn/etc/`下配置`hosts.allow`以及`hosts.deny`配置文件。主要用于仅允许通过VPN的用户访问SSH服务。参考：
+在`servers/myzoo.cn/etc/`下配置`hosts.allow`以及`hosts.deny`配置文件。主要用于仅允许通过VPN的用户访问SSH服务。参考：
 
 hosts.allow
 ```
@@ -75,13 +75,13 @@ ssh-keygen -R myzoo.cn
 ```sh
 #生成OpenVPN客户端的key文件，按提示一路修改或直接回车，最后一步输入`y`确认
 ./scripts/openvpn/client-key-gen 		client
-#备份OpenVPN密钥信息到 secret/myzoo.cn/openvpn/keys/（服务器文件会被清理掉）
+#备份OpenVPN密钥信息到 servers/myzoo.cn/openvpn/keys/（服务器文件会被清理掉）
 ./scripts/openvpn/keys-backup
-#生成客户端的VPN文件（secret/myzoo.cn/openvpn/client/）
+#生成客户端的VPN文件（servers/myzoo.cn/openvpn/client/）
 ./scripts/openvpn/client-conf-build 	client
 ```
 
-之后，双击生成的`secret/myzoo.cn/openvpn/client/myzoo.cn.ovpn`并输入密码添加到OpenVPN配置中。连接新添加的`myzoo.cn`配置进行测试，连接成功后直接`ssh`到服务器内网地址进行测试，配置无误的话就应该可以连接到服务器了。
+之后，双击生成的`servers/myzoo.cn/openvpn/client/myzoo.cn.ovpn`并输入密码添加到OpenVPN配置中。连接新添加的`myzoo.cn`配置进行测试，连接成功后直接`ssh`到服务器内网地址进行测试，配置无误的话就应该可以连接到服务器了。
 
 ##### 6.更新TCPWarpper配置文件
 

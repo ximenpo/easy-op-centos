@@ -39,10 +39,10 @@
 |          |    etc     | 与目标etc文件夹有关的脚本              |
 |          |  openvpn   | 与OpenVPN有关的脚本               |
 |          |    ssh     | 与SSH有关的脚本                   |
-|  secret  |            | 私有文件，如服务器配置信息等              |
+|  servers  |            | 私有文件，如服务器配置信息等              |
 |          |  myzoo.cn  | myzoo.cn为SSH要连接的目标服务器的SSH名称 |
 
-其中，secret目录下的服务器私有目录结构如下（以myzoo.cn为例）：
+其中，servers目录下的服务器私有目录结构如下（以myzoo.cn为例）：
 
 |  服务器连接名  |   目录    |  子目录   | 说明                |
 | :------: | :-----: | :----: | ----------------- |
@@ -127,17 +127,17 @@ source  scripts/set-default-host.sh myzoo.cn
 
 | 文件          | 本地位置                                  | 目标位置                       |
 | ----------- | ------------------------------------- | -------------------------- |
-| server.conf | `secret/myzoo.cn/openvpn/server.conf` | `/etc/openvpn/server.conf` |
-| server.conf | `secret/myzoo.cn/openvpn/client.conf` |                            |
-| vars        | `secret/myzoo.cn/openvpn/vars`        | `easy-rsa`目录下的`vars`文件     |
+| server.conf | `servers/myzoo.cn/openvpn/server.conf` | `/etc/openvpn/server.conf` |
+| server.conf | `servers/myzoo.cn/openvpn/client.conf` |                            |
+| vars        | `servers/myzoo.cn/openvpn/vars`        | `easy-rsa`目录下的`vars`文件     |
 
 #### keys-backup
 
-备份`easy-rsa`的`key`s目录到`secret/myzoo.cn/openvpn/keys`，并清除服务器上的keys目录
+备份`easy-rsa`的`key`s目录到`servers/myzoo.cn/openvpn/keys`，并清除服务器上的keys目录
 
 #### keys-restore
 
-恢复`secret/myzoo.cn/openvpn/keys`到目标服务器`easy-rsa`的`key`s目录
+恢复`servers/myzoo.cn/openvpn/keys`到目标服务器`easy-rsa`的`key`s目录
 
 ### scripts/ssh
 

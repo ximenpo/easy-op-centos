@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${2}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+    script=${1}
+else
+    host=${1}
+    script=${2}
+fi
+
+ssh ${host} <<EOF
+which   rsync   >/dev/null   ||  yum install -y rsync
+EOF

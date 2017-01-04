@@ -7,10 +7,8 @@ cat /etc/sysctl.conf | grep "net\\.ipv4\\.ip_forward[ \t]*=[ \t]*1" > /dev/null 
 }
 
 # install openvpn
-yum install -y openvpn easy-rsa
-
-# start&autostart openvpn
-if [ -e /etc/openvpn/server.conf ] ;then
+yum info    installed   openvpn > /dev/null     ||  {
+    yum     install -y  openvpn easy-rsa
     # make cert
     easyrsa_dir=
     for d in $(find /usr/share/easy-rsa/ -mindepth 1 -maxdepth 1 -type d) ;do
@@ -29,7 +27,10 @@ if [ -e /etc/openvpn/server.conf ] ;then
             popd
         fi
     fi
+}
 
+# start&autostart openvpn
+if [ -e /etc/openvpn/server.conf ] ;then
     # start service
     which systemctl > /dev/null 2>&1  &&  {
         systemctl -f    enable      openvpn@server.service

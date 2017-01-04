@@ -2,11 +2,12 @@
 
 set -e
 
+DOWNLOAD_URL='http://7d9nal.com2.z0.glb.qiniucdn.com/gogs_v0.9.113_linux_amd64.tar.gz'
+
 if [ "${1}" = "" ] ;then
     host=${EASY_OP_SSH_HOST}
 else
     host=${1}
-    DOWNLOAD_URL='http://7d9nal.com2.z0.glb.qiniucdn.com/gogs_v0.9.113_linux_amd64.tar.gz'
     echo ${2} | grep '\.tar\.gz$'   && {
         host=${1}
         DOWNLOAD_URL=${2}

@@ -13,9 +13,6 @@ else
     shift
 fi
 
-KEYFILE=$1
-shift
-
 which ssh-copy-id > /dev/null || {
     echo    'ERROR: no ssh-copy-id found'
 }

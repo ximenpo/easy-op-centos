@@ -6,4 +6,13 @@
   <service name="http"/>
   <service name="ssh"/>
   <port protocol="tcp" port="3000"/>
+  <rule family="ipv4">
+    <source address="192.168.142.166"/>
+    <port protocol="tcp" port="5432"/>
+    <accept/>
+  </rule>
+  <rule family="ipv4">
+    <source address="222.222.222.222/24"/>
+    <reject/>
+  </rule>
 </zone>

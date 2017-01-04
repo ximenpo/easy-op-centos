@@ -9,3 +9,5 @@ else
 fi
 
 ./scripts/sync  servers/${host}/firewalld/  ${host}:/etc/firewalld
+
+./scripts/firewalld/svc-reload

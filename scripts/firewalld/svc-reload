@@ -10,7 +10,7 @@ fi
 
 ssh     ${host}    <<EOF
 which systemctl > /dev/null && {
-    systemctl   eanble  firewalld.service
+    systemctl   enable  firewalld.service
     systemctl   status  firewalld.service > /dev/null   && {
         systemctl   reload      firewalld.service
     } || {

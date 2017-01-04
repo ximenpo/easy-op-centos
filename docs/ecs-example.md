@@ -52,7 +52,7 @@ sshd:all:deny
 步骤可选。这里不设置的话，下面每条命令都要带上要操作的服务器标识（第一个参数）:
 
 ```sh
-source	scripts/set-default-host.sh myzoo.cn
+source	scripts/_set-default-host.sh myzoo.cn
 ```
 
 ##### 3.复制登录密钥到服务器
@@ -67,7 +67,7 @@ ssh-keygen -R myzoo.cn
 ##### 4.配置OpenVPN服务端
 
 ```sh
-./scripts/openvpn/install
+./scripts/openvpn/svc-install
 ```
 
 ##### 5.配置OpenVPN客户端

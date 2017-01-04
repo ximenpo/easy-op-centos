@@ -10,4 +10,4 @@ fi
 
 ./scripts/php/repo-install  ${host}
 
-./scripts/php/pkg-install   ${host} php-fpm php-opcache
+./scripts/php/pkg-install   ${host} php-fpm  php-opcache

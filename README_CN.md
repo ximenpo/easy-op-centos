@@ -58,13 +58,13 @@
 
 该目录存放的脚本为常用脚本和使用初始化脚本：
 
-#### init.centos
+#### _init.centos
 
 功能：	初始化使用环境，安装使用时必要的组件
 备注：	第一次使用时执行
-示例：	`source scripts/init.centos.sh`
+示例：	`source scripts/_init.centos.sh`
 
-#### set-default-host
+#### _set-default-host
 
 功能：	设置要缺省的连接服务器，这样调用其他脚本时可以忽略 要连接的服务器
 备注：	对服务器要进行多次操作时使用
@@ -73,7 +73,7 @@
 #未设置时执行
 ./scripts/run	myzoo.cn	echo 'hello~'
 #设置默认服务器后执行
-source scripts/set-default-host.sh myzoo.cn
+source scripts/_set-default-host.sh myzoo.cn
 ./scripts/run   echo 'hello~'
 ```
 
@@ -85,7 +85,7 @@ source scripts/set-default-host.sh myzoo.cn
 ```
 ./scripts/run	myzoo.cn	echo 'hello~'
 #或
-source  scripts/set-default-host.sh myzoo.cn
+source  scripts/_set-default-host.sh myzoo.cn
 ./scripts/run echo 'hello~'
 ```
 
@@ -97,7 +97,7 @@ source  scripts/set-default-host.sh myzoo.cn
 ```
 ./scripts/run-script	myzoo.cn	files/echo-helloworld.sh
 #或
-source  scripts/set-default-host.sh myzoo.cn
+source  scripts/_set-default-host.sh myzoo.cn
 ./scripts/run-script	files/echo-helloworld.sh
 ```
 

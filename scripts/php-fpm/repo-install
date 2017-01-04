@@ -8,6 +8,4 @@ else
     host=${1}
 fi
 
-./scripts/php/repo-install  ${host}
-
-./scripts/php/pkg-install   ${host} php-cli  php-opcache
+./scripts/run-script    ${host} files/php-fpm/webtatic-install.sh

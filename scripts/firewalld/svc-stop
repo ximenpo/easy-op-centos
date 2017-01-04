@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+ssh     ${host}    <<EOF
+which systemctl > /dev/null && {
+    systemctl   status  firewalld.service > /dev/null   && {
+        systemctl   stop    firewalld.service
+    }
+    systemctl   disable  firewalld.service
+}
+echo        ----------------------
+systemctl   status  firewalld.service
+EOF

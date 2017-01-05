@@ -27,3 +27,5 @@ yum repolist enabled    |   grep 'webtatic/' > /dev/null    || {
         exit    1
     fi
 }
+
+exit    0

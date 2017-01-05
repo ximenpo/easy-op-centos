@@ -8,8 +8,6 @@ else
     host=${1}
 fi
 
-./scripts/run   ${host}   <<EOF
-yum list installed  firewalld   >/dev/null  ||   yum     install -y  firewalld
-EOF
+./scripts/run-script   ${host}  files/firewalld/install.sh
 
 ./scripts/firewalld/conf-update ${host}

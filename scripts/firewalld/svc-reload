@@ -16,7 +16,7 @@ which systemctl > /dev/null && {
     } || {
         systemctl   start       firewalld.service
     }
+    echo        ----------------------
+    systemctl   status  firewalld.service
 }
-echo        ----------------------
-systemctl   status  firewalld.service
 EOF

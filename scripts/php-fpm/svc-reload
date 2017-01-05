@@ -16,7 +16,7 @@ which systemctl > /dev/null && {
     } || {
         systemctl   start       php-fpm.service
     }
+    echo        ----------------------
+    systemctl   status  php-fpm.service
 }
-echo        ----------------------
-systemctl   status  php-fpm.service
 EOF

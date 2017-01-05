@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 yum repolist enabled    |   grep 'epel/' > /dev/null    || {
     yum     install -y  epel-release
 }

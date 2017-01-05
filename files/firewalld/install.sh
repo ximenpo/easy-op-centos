@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 yum list installed  firewalld   >/dev/null  ||   yum     install -y  firewalld
 
 which systemctl > /dev/null && {

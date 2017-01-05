@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # enable forward
 cat /etc/sysctl.conf | grep "net\\.ipv4\\.ip_forward[ \t]*=[ \t]*1" > /dev/null || {
     echo    net.ipv4.ip_forward = 1     >>  /etc/sysctl.conf

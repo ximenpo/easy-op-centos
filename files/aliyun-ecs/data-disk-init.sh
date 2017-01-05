@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # format data disk and mount to /data
 DATA_DIR=/data
 findmnt -m --target ${DATA_DIR} > /dev/null && {

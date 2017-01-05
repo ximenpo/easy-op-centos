@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+[ -f servers/${host}/iptables/iptables ] &&
+    ./scripts/sync  servers/${host}/iptables/iptables  ${host}:/etc/sysconfig/iptables
+
+./scripts/iptables/svc-reload  ${host}

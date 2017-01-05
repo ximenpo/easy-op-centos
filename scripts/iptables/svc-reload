@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+ssh     ${host}    <<EOF
+which systemctl > /dev/null && {
+    systemctl   enable  iptables.service
+    systemctl   status  iptables.service > /dev/null   && {
+        systemctl   reload      iptables.service
+    } || {
+        systemctl   start       iptables.service
+    }
+    echo        ----------------------
+    systemctl   status  iptables.service
+}
+which systemctl > /dev/null || {
+    chkconfig   iptables    on
+    service     iptables    restart
+}
+EOF

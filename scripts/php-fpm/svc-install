@@ -11,3 +11,5 @@ fi
 ./scripts/php-fpm/repo-install  ${host}
 
 ./scripts/php-fpm/pkg-install   ${host} php-fpm  php-opcache
+
+./scripts/php-fpm/conf-update   ${host}

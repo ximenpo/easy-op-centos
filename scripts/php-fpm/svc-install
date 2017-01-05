@@ -8,6 +8,6 @@ else
     host=${1}
 fi
 
-./scripts/php/repo-install  ${host}
+./scripts/php-fpm/repo-install  ${host}
 
-./scripts/php/pkg-install   ${host} php-fpm  php-opcache
+./scripts/php-fpm/pkg-install   ${host} php-fpm  php-opcache

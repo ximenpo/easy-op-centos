@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+./scripts/run   ${host}   <<EOF
+yum list installed  firewalld   >/dev/null  ||   yum     install -y  firewalld
+EOF
+
+./scripts/firewalld/conf-update ${host}

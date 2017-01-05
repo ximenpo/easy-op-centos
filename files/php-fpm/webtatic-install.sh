@@ -4,6 +4,10 @@ yum repolist enabled    |   grep 'epel/' > /dev/null    || {
     yum     install -y  epel-release
 }
 
+yum list installed epel-release >/dev/null  ||  {
+    yum     install -y  epel-release
+}
+
 yum repolist enabled    |   grep 'webtatic/' > /dev/null    || {
     for w in `cat /etc/redhat-release` ; do
        echo $w | grep '[5-7]\.'    >/dev/null    && {

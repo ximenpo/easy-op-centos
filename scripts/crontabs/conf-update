@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+for item in crontab cron.allow cron.deny anacrontab ; do
+    [ -f servers/${host}/etc/crontab ] &&
+        ./scripts/sync  servers/${host}/crontabs/etc/$item  ${host}:/etc/$item
+done
+
+for item in cron.d cron.hourly cron.daily cron.weekly cron.monthly ; do
+    [ -d servers/${host}/etc/crontab ] &&
+        ./scripts/sync  servers/${host}/crontabs/etc/$item ${host}:/etc/$item \
+            --exclude="0hourly"                 \
+            --exclude="0anacron"                \
+            --exclude="logrotate"               \
+            --exclude="man-db.cron"
+done
+
+[ -d servers/${host}/cron ] &&
+    ./scripts/sync  servers/${host}/crontabs/cron ${host}:/var/spool/cron/
+
+./scripts/crontabs/svc-reload  ${host}

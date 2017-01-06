@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+ssh   ${host}  <<EOF
+#!/usr/bin/env bash
+
+set -e
+
+yum list installed  crontabs   >/dev/null  ||   yum     install -y  crontabs cronie cronie-anacron
+
+exit    0
+EOF
+
+./scripts/crontabs/conf-update ${host}

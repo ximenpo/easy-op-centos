@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+ssh     ${host}    <<EOF
+#!/usr/bin/env bash
+
+set -e
+
+which systemctl > /dev/null && {
+    systemctl   enable  crond.service
+    systemctl   reload-or-restart   crond.service
+    echo        ----------------------
+    systemctl   status  crond.service
+}
+which systemctl > /dev/null || {
+    chkconfig   crond    on
+    service     crond    restart
+    echo        ----------------------
+    service     crond    status
+}
+
+exit    0
+EOF

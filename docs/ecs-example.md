@@ -61,16 +61,22 @@ source	scripts/_set-default-host.sh myzoo.cn
 #清理known_hosts文件中的对应信息【旧服务器标识】
 ssh-keygen -R myzoo.cn
 #复制登录key到对应服务器，中间会提示接受新服务器标识，以及输入登录密码（应该是最后一次输密码）
-./scripts/ssh/login-key-push 	~/private/keys/ssh_key
+./scripts/sshd/login-key-push 	~/private/keys/ssh_key
 ```
 
-##### 4.配置OpenVPN服务端
+##### 4.安装必要的软件
 
 ```sh
-./scripts/openvpn/svc-install
+./scripts/init
 ```
 
-##### 5.配置OpenVPN客户端
+##### 5.配置OpenVPN服务端
+
+```sh
+./scripts/install	openvpn
+```
+
+##### 6.配置OpenVPN客户端
 
 ```sh
 #生成OpenVPN客户端的key文件，按提示一路修改或直接回车，最后一步输入`y`确认
@@ -83,7 +89,7 @@ ssh-keygen -R myzoo.cn
 
 之后，双击生成的`servers/myzoo.cn/openvpn/client/myzoo.cn.ovpn`并输入密码添加到OpenVPN配置中。连接新添加的`myzoo.cn`配置进行测试，连接成功后直接`ssh`到服务器内网地址进行测试，配置无误的话就应该可以连接到服务器了。
 
-##### 6.更新TCPWarpper配置文件
+##### 7.更新TCPWarpper配置文件
 
 可选，即更新`hosts.allow`以及`hosts.deny`配置。执行前，务必先开一个ssh连接上去，以防设置有误。
 ```
@@ -92,7 +98,7 @@ ssh-keygen -R myzoo.cn
 
 执行完成后，断开VPN连接，测试自己配置的IP允许／禁止是否生效。
 
-##### 7.更新系统程序包
+##### 8.更新系统程序包
 ```
 ./scripts/run	'yum update -y'
 ```

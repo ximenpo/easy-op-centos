@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${2}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+    svc=${1}
+else
+    host=${1}
+    svc=${2}
+fi
+
+if [ -x scripts/${svc}/svc-install ] ; then
+    scripts/${svc}/svc-install   ${host}
+else
+    ssh ${host} "yum list installed ${svc} >/dev/null  ||yum install -y ${svc}"
+fi

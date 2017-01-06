@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${2}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+    svc=${1}
+else
+    host=${1}
+    svc=${2}
+fi
+
+if [ -x scripts/${svc}/svc-reload ] ; then
+    scripts/${svc}/svc-reload   ${host}
+else
+    ssh     ${host}    <<EOF
+#!/usr/bin/env bash
+
+set -e
+
+which systemctl > /dev/null && {
+    systemctl   enable              ${svc}.service
+    systemctl   reload-or-restart   ${svc}.service
+    echo        ----------------------
+    systemctl   status              ${svc}.service
+}
+which systemctl > /dev/null || {
+    chkconfig   ${svc}      on
+    service     ${svc}      reload
+    echo        ----------------------
+    service     ${svc}      status
+}
+
+exit    0
+EOF
+fi

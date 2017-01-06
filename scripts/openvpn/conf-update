@@ -19,8 +19,6 @@ else
 fi
 
 ./scripts/sync  servers/${host}/openvpn/server.conf ${host}:/etc/openvpn/
-ssh             ${host}    '
-which systemctl > /dev/null                         \
-    && systemctl restart "openvpn@server.service"   \
-    || service openvpn restart                      \
-'
+
+
+./scripts/svc/reload    ${host} openvpn

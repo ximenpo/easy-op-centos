@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+ssh ${host} <<EOF
+#!/usr/bin/env bash
+
+set -e
+
+which systemctl > /dev/null && {
+    systemctl   is-active   openvpn@server.service > /dev/null   && {
+        systemctl   stop    openvpn@server.service
+    }
+    systemctl   disable     openvpn@server.service
+    echo        ----------------------
+    systemctl   status      openvpn@server.service
+}
+
+which systemctl > /dev/null || {
+    chkconfig   openvpn     off
+    service     openvpn     stop
+    echo        ----------------------
+    service     openvpn     status
+}
+
+exit    0
+EOF

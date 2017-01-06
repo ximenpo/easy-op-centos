@@ -8,22 +8,23 @@ else
     host=${1}
 fi
 
-ssh     ${host}    <<EOF
+ssh ${host} <<EOF
 #!/usr/bin/env bash
 
 set -e
 
 which systemctl > /dev/null && {
-    systemctl   enable  crond.service
-    systemctl   reload-or-restart   crond.service
+    systemctl   enable              openvpn@serverservice
+    systemctl   reload-or-restart   openvpn@server.service
     echo        ----------------------
-    systemctl   status  crond.service
+    systemctl   status              openvpn@server.service
 }
+
 which systemctl > /dev/null || {
-    chkconfig   crond    on
-    service     crond    restart
+    chkconfig   openvpn     on
+    service     openvpn     reload
     echo        ----------------------
-    service     crond    status
+    service     openvpn     status
 }
 
 exit    0

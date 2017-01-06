@@ -10,4 +10,4 @@ fi
 
 ./scripts/sync  servers/${host}/firewalld/  ${host}:/etc/firewalld
 
-./scripts/firewalld/svc-reload  ${host}
+./scripts/svc/reload    ${host} firewalld

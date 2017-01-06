@@ -18,4 +18,4 @@ fi
 
 [ -d servers/${host}/php-fpm/php-fpm.d ] && ./scripts/sync  servers/${host}/php-fpm/php-fpm.d/   ${host}:/etc/php-fpm.d/
 
-./scripts/php-fpm/svc-reload    ${host}
+./scripts/svc/reload    ${host} php-fpm

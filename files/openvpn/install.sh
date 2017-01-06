@@ -31,6 +31,4 @@ yum info    installed   openvpn > /dev/null 2>&1     ||  {
     fi
 }
 
-fi
-
 exit    0

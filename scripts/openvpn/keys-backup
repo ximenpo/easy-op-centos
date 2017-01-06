@@ -15,6 +15,7 @@ done
 if [ "$easyrsa_dir" = "" ] ;then
     echo    ERROR: easy-rsa directory not found
 else
-    ./scripts/sync  ${host}:$easyrsa_dir/keys/  servers/${host}/openvpn/keys/
+    mkdir   -p      servers/${host}/_secret/openvpn/keys/
+    ./scripts/sync  ${host}:$easyrsa_dir/keys/  servers/${host}/_secret/openvpn/keys/
     ssh     ${host} "cd ${easyrsa_dir}; source vars;./clean-all"
 fi

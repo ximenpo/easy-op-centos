@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+[ -f servers/${host}/ntpd/ntp.conf ] &&
+    ./scripts/sync  servers/${host}/ntpd/ntp.conf  ${host}:/etc/ntp.conf
+
+./scripts/svc/reload    ${host} ntpd

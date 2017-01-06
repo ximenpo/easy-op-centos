@@ -3,13 +3,13 @@
 set -e
 
 # enable forward
-cat /etc/sysctl.conf | grep "net\\.ipv4\\.ip_forward[ \t]*=[ \t]*1" > /dev/null || {
+cat /etc/sysctl.conf | grep "net\\.ipv4\\.ip_forward[ \t]*=[ \t]*1" > /dev/null 2>&1 || {
     echo    net.ipv4.ip_forward = 1     >>  /etc/sysctl.conf
     sysctl  -p
 }
 
 # install openvpn
-yum info    installed   openvpn > /dev/null     ||  {
+yum info    installed   openvpn > /dev/null 2>&1     ||  {
     yum     install -y  openvpn easy-rsa
     # make cert
     easyrsa_dir=
@@ -31,17 +31,6 @@ yum info    installed   openvpn > /dev/null     ||  {
     fi
 }
 
-# start&autostart openvpn
-if [ -e /etc/openvpn/server.conf ] ;then
-    # start service
-    which systemctl > /dev/null 2>&1  &&  {
-        systemctl -f    enable      openvpn@server.service
-        systemctl       restart     openvpn@server.service
-    }
-    which systemctl > /dev/null 2>&1  ||  {
-        chkconfig   openvpn on
-        service     openvpn restart
-    }
 fi
 
 exit    0

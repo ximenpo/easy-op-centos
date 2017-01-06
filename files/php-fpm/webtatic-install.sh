@@ -2,17 +2,17 @@
 
 set -e
 
-yum repolist enabled    |   grep 'epel/' > /dev/null    || {
+yum repolist enabled    |   grep 'epel/' > /dev/null 2>&1    || {
     yum     install -y  epel-release
 }
 
-yum list installed epel-release >/dev/null  ||  {
+yum list installed epel-release >/dev/null 2>&1  ||  {
     yum     install -y  epel-release
 }
 
-yum repolist enabled    |   grep 'webtatic/' > /dev/null    || {
+yum repolist enabled    |   grep 'webtatic/' > /dev/null 2>&1    || {
     for w in `cat /etc/redhat-release` ; do
-       echo $w | grep '[5-7]\.'    >/dev/null    && {
+       echo $w | grep '[5-7]\.'    >/dev/null 2>&1    && {
            V=`echo     $w  |   cut -d '.' -f 1`
            break    1
        }

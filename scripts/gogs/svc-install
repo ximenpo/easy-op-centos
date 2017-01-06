@@ -24,7 +24,7 @@ DWONLOAD_FILE=${DOWNLOAD_URL##*/}
 
 ssh     ${host}    <<EOF
 yum     install -y  git
-id      -u      git >/dev/null  ||  useradd -m git
+id      -u      git >/dev/null 2>&1  ||  useradd -m git
 mkdir   -p      ${INSTALL_ROOT}
 mkdir   -p      /data/gogs/data
 mkdir   -p      /data/gogs/repo

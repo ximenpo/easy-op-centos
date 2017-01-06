@@ -13,5 +13,5 @@ fi
 if [ -x scripts/${svc}/svc-install ] ; then
     scripts/${svc}/svc-install   ${host}
 else
-    ssh ${host} "yum list installed ${svc} >/dev/null  ||yum install -y ${svc}"
+    ssh ${host} "yum list installed ${svc} >/dev/null 2>&1  ||yum install -y ${svc}"
 fi

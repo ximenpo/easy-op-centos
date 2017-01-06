@@ -14,7 +14,7 @@ if [ -d servers/${host}/_secret/openvpn/${client} ] ;then
     rm  -rf servers/${host}/_secret/openvpn/${client}
 fi
 mkdir   -p  servers/${host}/_secret/openvpn/${client}
-pushd   servers/${host}/_secret/openvpn/keys/    > /dev/null
-cp  ../client.conf  ../${client}/${host}.ovpn
+pushd   servers/${host}/_secret/openvpn/keys/    > /dev/null 2>&1
+cp  ../../../openvpn/client.conf  ../${client}/${host}.ovpn
 cp  ca.crt ta.key ${client}.crt ${client}.csr ${client}.key   ../${client}/
-popd    > /dev/null
+popd    > /dev/null 2>&1

@@ -13,15 +13,15 @@ CONF_DIR=/etc/openresty
 ssh     ${host}    <<EOF
 set -e
 
-id      -u      nginx >/dev/null    ||  useradd -M -s /bin/nologin nginx
+id      -u      nginx >/dev/null 2>&1    ||  useradd -M -s /bin/nologin nginx
 
-yum repolist enabled    |   grep "Official OpenResty Repository" > /dev/null    || {
-    yum info    installed   yum-utils > /dev/null    ||
+yum repolist enabled    |   grep "Official OpenResty Repository" > /dev/null 2>&1    || {
+    yum info    installed   yum-utils > /dev/null 2>&1    ||
         yum     install -y  yum-utils
     yum-config-manager --add-repo https://openresty.org/yum/centos/OpenResty.repo
 }
 
-yum --disablerepo="*" --enablerepo="openresty"  info installed openresty > /dev/null    ||
+yum --disablerepo="*" --enablerepo="openresty"  info installed openresty > /dev/null 2>&1    ||
     yum --disablerepo="*" --enablerepo="openresty"  install -y openresty
 
 mkdir   -p      ${CONF_DIR}/service

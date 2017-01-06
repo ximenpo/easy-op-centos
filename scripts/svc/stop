@@ -18,8 +18,8 @@ else
 
 set -e
 
-which systemctl > /dev/null && {
-    systemctl   is-active   ${svc}.service > /dev/null   && {
+which systemctl > /dev/null 2>&1 && {
+    systemctl   is-active   ${svc}.service > /dev/null 2>&1   && {
         systemctl   stop    ${svc}.service
     }
     systemctl   disable ${svc}.service
@@ -27,7 +27,7 @@ which systemctl > /dev/null && {
     systemctl   status  ${svc}.service
 }
 
-which systemctl > /dev/null || {
+which systemctl > /dev/null 2>&1 || {
     chkconfig   ${svc}  off
     service     ${svc}  stop
     echo        ----------------------

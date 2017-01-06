@@ -11,8 +11,8 @@ which systemctl > /dev/null && {
 }
 
 which systemctl > /dev/null || {
-    chkconfig   firewalld.servic    off
-    service     firewalld           stop
+    chkconfig   firewalld   off
+    service     firewalld   stop
 }
 
 exit    0

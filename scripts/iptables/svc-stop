@@ -9,12 +9,25 @@ else
 fi
 
 ssh     ${host}    <<EOF
+#!/usr/bin/env bash
+
+set -e
+
 which systemctl > /dev/null && {
-    systemctl   status  iptables.service > /dev/null   && {
+    systemctl   is-active   iptables.service > /dev/null   && {
         systemctl   stop    iptables.service
     }
-    systemctl   disable  iptables.service
+    systemctl   disable     iptables.service
+    echo        ----------------------
+    systemctl   status      iptables.service
 }
-echo        ----------------------
-systemctl   status  iptables.service
+
+which systemctl > /dev/null || {
+    chkconfig   iptables    off
+    service     iptables    stop
+    echo        ----------------------
+    service     iptables    status
+}
+
+exit    0
 EOF

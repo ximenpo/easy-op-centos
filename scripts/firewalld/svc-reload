@@ -9,14 +9,23 @@ else
 fi
 
 ssh     ${host}    <<EOF
+#!/usr/bin/env bash
+
+set -e
+
 which systemctl > /dev/null && {
     systemctl   enable  firewalld.service
-    systemctl   status  firewalld.service > /dev/null   && {
-        systemctl   reload      firewalld.service
-    } || {
-        systemctl   start       firewalld.service
-    }
+    systemctl   reload-or-restart   firewalld.service
     echo        ----------------------
-    systemctl   status  firewalld.service
+    systemctl   status      firewalld.service
 }
+
+which systemctl > /dev/null || {
+    chkconfig   firewalld   on
+    service     firewalld   restart
+    echo        ----------------------
+    service     firewalld   status
+}
+
+exit    0
 EOF

@@ -14,12 +14,12 @@ INSTALL_ROOT=/home/git
 
 ssh     ${host}    <<EOF
 which systemctl > /dev/null 2>&1 && {
-        systemctl   enable  ${INSTALL_ROOT}/gogs/scripts/systemd/gogs.service
-    }
+    systemctl   enable  ${INSTALL_ROOT}/gogs/scripts/systemd/gogs.service
+}
 which systemctl > /dev/null 2>&1 || {
-        cp          -f      ${INSTALL_ROOT}/gogs/scripts/init/centos/gogs  /etc/init.d/
-        chomod      755     /etc/init.d/gogs
-    }
+    cp          -f      ${INSTALL_ROOT}/gogs/scripts/init/centos/gogs  /etc/init.d/
+    chomod      755     /etc/init.d/gogs
+}
 EOF
 
 ./scripts/svc/reload    ${host} gogs

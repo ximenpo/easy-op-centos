@@ -16,9 +16,11 @@ CONF_DIR=/etc/openresty
 ssh     ${host}    <<EOF
 which systemctl > /dev/null 2>&1 && {
     systemctl   enable      ${CONF_DIR}/service/openresty.service
+}
 which systemctl > /dev/null 2>&1 || {
     cp          -f          ${CONF_DIR}/service/openresty  /etc/init.d/
     chomod      755         /etc/init.d/openresty
+}
 EOF
 
 ./scripts/svc/reload    ${host} openresty

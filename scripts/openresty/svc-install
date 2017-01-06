@@ -13,7 +13,7 @@ CONF_DIR=/etc/openresty
 ssh     ${host}    <<EOF
 set -e
 
-id      -u      nginx >/dev/null 2>&1    ||  useradd -M -s /bin/nologin nginx
+id      -u      nginx >/dev/null 2>&1    ||  useradd -M -s /sbin/nologin nginx
 
 yum repolist enabled    |   grep "Official OpenResty Repository" > /dev/null 2>&1    || {
     yum info    installed   yum-utils > /dev/null 2>&1    ||

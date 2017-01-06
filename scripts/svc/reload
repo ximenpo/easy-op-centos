@@ -19,10 +19,16 @@ else
 set -e
 
 which systemctl > /dev/null 2>&1 && {
-    systemctl   enable              ${svc}.service
-    systemctl   reload-or-restart   ${svc}.service
+    systemctl is-enabled ${svc}.service > /dev/null 2>&1    || {
+        systemctl   enable              ${svc}.service
+    }
+    systemctl is-active ${svc}.service > /dev/null 2>&1     && {
+        systemctl   reload-or-restart   ${svc}.service
+    }   ||  {
+        systemctl   start               ${svc}.service
+    }
     echo        ----------------------
-    systemctl   status              ${svc}.service
+    systemctl   status                  ${svc}.service
 }
 which systemctl > /dev/null 2>&1 || {
     chkconfig   ${svc}      on

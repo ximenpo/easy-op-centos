@@ -13,9 +13,9 @@ else
     shift
 fi
 
-which ssh-copy-id > /dev/null 2>&1 || {
+command -v ssh-copy-id > /dev/null 2>&1 || {
     echo    'ERROR: no ssh-copy-id found'
 }
-which ssh-copy-id > /dev/null 2>&1 && {
+command -v ssh-copy-id > /dev/null 2>&1 && {
     ssh-copy-id -i "${keyfile}" -o PreferredAuthentications=password $@ ${host}
 }

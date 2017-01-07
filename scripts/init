@@ -9,5 +9,5 @@ else
 fi
 
 ssh ${host} <<EOF
-which   rsync   >/dev/null 2>&1   ||  yum install -y rsync
+command -v   rsync   >/dev/null 2>&1   ||  yum install -y rsync
 EOF

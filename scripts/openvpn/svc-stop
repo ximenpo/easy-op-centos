@@ -13,7 +13,7 @@ ssh ${host} <<EOF
 
 set -e
 
-which systemctl > /dev/null 2>&1 && {
+command -v systemctl > /dev/null 2>&1 && {
     systemctl   is-active   openvpn@server.service > /dev/null 2>&1   && {
         systemctl   stop    openvpn@server.service
     }
@@ -22,7 +22,7 @@ which systemctl > /dev/null 2>&1 && {
     systemctl   status      openvpn@server.service
 }
 
-which systemctl > /dev/null 2>&1 || {
+command -v systemctl > /dev/null 2>&1 || {
     chkconfig   openvpn     off
     service     openvpn     stop
     echo        ----------------------

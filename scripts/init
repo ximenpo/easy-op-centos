@@ -10,4 +10,5 @@ fi
 
 ssh ${host} <<EOF
 command -v   rsync   >/dev/null 2>&1   ||  yum install -y rsync
+command -v   curl    >/dev/null 2>&1   ||  yum install -y curl
 EOF

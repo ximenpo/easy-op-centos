@@ -17,14 +17,14 @@ command -v systemctl > /dev/null 2>&1 && {
     systemctl   enable              openvpn@serverservice
     systemctl   reload-or-restart   openvpn@server.service
     echo        ----------------------
-    systemctl   status              openvpn@server.service
+    systemctl   status              openvpn@server.service      ||  echo ''
 }
 
-command -v systemctl > /dev/null 2>&1 || {
+command -v systemctl > /dev/null 2>&1   || {
     chkconfig   openvpn     on
     service     openvpn     reload
     echo        ----------------------
-    service     openvpn     status
+    service     openvpn     status      ||  echo ''
 }
 
 exit    0

@@ -24,16 +24,18 @@ command -v systemctl > /dev/null 2>&1 && {
     }
     systemctl   disable ${svc}.service
     echo        ----------------------
-    systemctl   status  ${svc}.service
+    systemctl   status  ${svc}.service      ||  echo ''
 }
 
 command -v systemctl > /dev/null 2>&1 || {
     chkconfig   ${svc}  off
     service     ${svc}  stop
     echo        ----------------------
-    service     ${svc}  status
+    service     ${svc}  status      ||  echo ''
 }
 
 exit    0
 EOF
 fi
+
+exit    0

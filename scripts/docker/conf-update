@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+CONF_DIR=/etc/docker
+
+for f in daemon.json ; do
+    [ -f servers/${host}/docker/${f} ] &&
+        ./scripts/sync  servers/${host}/docker/${f}  ${host}:${CONF_DIR}/${f}
+done
+
+./scripts/svc/reload    ${host} docker

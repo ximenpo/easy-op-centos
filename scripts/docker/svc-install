@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+########################################
+#   Note: suport CentOS 7 only
+########################################
+
+set -e
+
+if [ "${1}" = "" ] ;then
+    host=${EASY_OP_SSH_HOST}
+else
+    host=${1}
+fi
+
+CONF_DIR=/etc/openresty
+
+ssh     ${host}    <<'EOF'
+set     -e
+command -v      docker  >/dev/null 2>&1 ||  {
+    curl    -fsSL   https://get.docker.com/ | sh || echo '' #don't check failure
+}
+command -v      docker  >/dev/null 2>&1 ||  {
+    exit    1
+}
+exit    0
+EOF
+
+./scripts/svc/reload     ${host}    docker
+./scripts/svc/stop       ${host}    docker
+
+./scripts/docker/conf-update     ${host}

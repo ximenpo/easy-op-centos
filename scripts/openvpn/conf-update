@@ -21,4 +21,4 @@ fi
 ./scripts/sync  servers/${host}/openvpn/server.conf ${host}:/etc/openvpn/
 
 
-./scripts/svc/reload    ${host} openvpn
+./scripts/reload    ${host} openvpn

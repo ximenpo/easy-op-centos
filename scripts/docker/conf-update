@@ -15,4 +15,4 @@ for f in daemon.json ; do
         ./scripts/sync  servers/${host}/docker/${f}  ${host}:${CONF_DIR}/${f}
 done
 
-./scripts/svc/reload    ${host} docker
+./scripts/reload    ${host} docker

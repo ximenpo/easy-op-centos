@@ -12,4 +12,4 @@ INSTALL_ROOT=/home/git
 
 ssh     ${host}    "rm  -rf ${INSTALL_ROOT}/gogs/custom"
 
-./scripts/svc/reload    ${host} gogs
+./scripts/reload    ${host} gogs

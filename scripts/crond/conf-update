@@ -25,4 +25,4 @@ done
 [ -d servers/${host}/cron ] &&
     ./scripts/sync  servers/${host}/crond/cron ${host}:/var/spool/cron/
 
-./scripts/svc/reload    ${host} crond
+./scripts/reload    ${host} crond

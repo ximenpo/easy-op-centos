@@ -11,4 +11,4 @@ fi
 [ -f servers/${host}/iptables/iptables ] &&
     ./scripts/sync  servers/${host}/iptables/iptables  ${host}:/etc/sysconfig/iptables
 
-./scripts/svc/reload    ${host} iptables
+./scripts/reload    ${host} iptables

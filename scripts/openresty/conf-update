@@ -23,4 +23,4 @@ command -v systemctl > /dev/null 2>&1 || {
 }
 EOF
 
-./scripts/svc/reload    ${host} openresty
+./scripts/reload    ${host} openresty

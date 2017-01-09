@@ -25,7 +25,7 @@ command -v      docker  >/dev/null 2>&1 ||  {
 exit    0
 EOF
 
-./scripts/svc/reload     ${host}    docker
-./scripts/svc/stop       ${host}    docker
+./scripts/reload     ${host}    docker
+./scripts/stop       ${host}    docker
 
 ./scripts/docker/conf-update     ${host}

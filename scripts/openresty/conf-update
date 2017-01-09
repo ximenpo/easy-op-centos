@@ -1,26 +1,20 @@
 #!/usr/bin/env bash
 
-set -e
-
-if [ "${1}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-else
-    host=${1}
-fi
+source  ./scripts/_init.sh
 
 CONF_DIR=/etc/openresty
 
-./scripts/sync  servers/${host}/openresty/conf/      ${host}:${CONF_DIR}/conf/
+./scripts/sync  ${EO_CONF}/openresty/conf/      ${EO_HOST}:${CONF_DIR}/conf/
 
 # start service
-ssh     ${host}    <<EOF
-command -v systemctl > /dev/null 2>&1 && {
-    systemctl   enable      ${CONF_DIR}/service/openresty.service
-}
-command -v systemctl > /dev/null 2>&1 || {
-    cp          -f          ${CONF_DIR}/service/openresty  /etc/init.d/
-    chomod      755         /etc/init.d/openresty
-}
+./scripts/run       ${EO_HOST}    <<EOF
+    command -v systemctl > /dev/null 2>&1 && {
+        systemctl   enable      ${CONF_DIR}/service/openresty.service
+    }
+    command -v systemctl > /dev/null 2>&1 || {
+        cp          -f          ${CONF_DIR}/service/openresty  /etc/init.d/
+        chomod      755         /etc/init.d/openresty
+    }
 EOF
 
-./scripts/reload    ${host} openresty
+./scripts/reload    ${EO_HOST} openresty

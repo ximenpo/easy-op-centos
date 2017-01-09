@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
 
-set -e
-
-if [ "${1}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-else
-    host=${1}
-fi
+source  ./scripts/_init.sh
 
 INSTALL_ROOT=/home/git
 
-ssh     ${host}    "rm  -rf ${INSTALL_ROOT}/gogs/custom"
+./scripts/run       ${EO_HOST}  "rm  -rf ${INSTALL_ROOT}/gogs/custom"
 
-./scripts/reload    ${host} gogs
+./scripts/reload    ${EO_HOST}  gogs

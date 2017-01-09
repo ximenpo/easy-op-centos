@@ -3,11 +3,12 @@
 source  ./scripts/_init.sh
 
 svc=${1}
+shift
 
 if [ -x ./scripts/${svc}/svc-reload ] ; then
-    ./scripts/${svc}/svc-reload     ${EO_HOST}
+    ./scripts/${svc}/svc-reload     ${EO_HOST}  $@
 else
-    ./scripts/run                   ${EO_HOST}    <<EOF
+    ./scripts/run                   ${EO_HOST}  <<EOF
 #!/usr/bin/env bash
 
 set -e

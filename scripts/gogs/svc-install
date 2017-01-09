@@ -1,28 +1,19 @@
 #!/usr/bin/env bash
 
-set -e
+source  ./scripts/_init.sh
 
-DOWNLOAD_URL='http://7d9nal.com2.z0.glb.qiniucdn.com/gogs_v0.9.113_linux_amd64.tar.gz'
-
-if [ "${1}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-else
-    host=${1}
-    echo ${2} | grep '\.tar\.gz$'   && {
-        host=${1}
-        DOWNLOAD_URL=${2}
-    }
-    echo ${1} | grep '\.tar\.gz$'   && {
-        host=${EASY_OP_SSH_HOST}
-        DOWNLOAD_URL=${1}
-    }
-fi
+DOWNLOAD_URL=${1}
+grep '\.tar\.gz$'   >/dev/null 2>&1   <<< "${DOWNLOAD_URL}"   || {
+    DOWNLOAD_URL='http://7d9nal.com2.z0.glb.qiniucdn.com/gogs_v0.9.113_linux_amd64.tar.gz'
+}
 
 INSTALL_ROOT=/home/git
 
 DWONLOAD_FILE=${DOWNLOAD_URL##*/}
 
-ssh     ${host}    <<EOF
+./scripts/run   ${EO_HOST}  <<EOF
+set     -e
+
 yum     install -y  git
 id      -u      git >/dev/null 2>&1  ||  useradd -m git
 mkdir   -p      ${INSTALL_ROOT}
@@ -36,4 +27,4 @@ rm      -rf     ${INSTALL_ROOT}/gogs
 tar     -zxf    ${DWONLOAD_FILE}
 EOF
 
-./scripts/gogs/conf-update  ${host}
+./scripts/gogs/conf-update  ${EO_HOST}

@@ -1,21 +1,15 @@
 #!/usr/bin/env bash
 
-set -e
+source  ./scripts/_init.sh
 
-if [ "${1}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-else
-    host=${1}
-fi
+[ -f ${EO_CONF}/php-fpm/php.ini ] && ./scripts/sync  ${EO_CONF}/php-fpm/php.ini   ${EO_HOST}:/etc/
 
-[ -f servers/${host}/php-fpm/php.ini ] && ./scripts/sync  servers/${host}/php-fpm/php.ini   ${host}:/etc/
+[ -d ${EO_CONF}/php-fpm/php.d ] && ./scripts/sync  ${EO_CONF}/php-fpm/php.d/   ${EO_HOST}:/etc/php.d/
 
-[ -d servers/${host}/php-fpm/php.d ] && ./scripts/sync  servers/${host}/php-fpm/php.d/   ${host}:/etc/php.d/
+[ -d ${EO_CONF}/php-fpm/php-zts.d ] && ./scripts/sync  ${EO_CONF}/php-fpm/php-zts.d/   ${EO_HOST}:/etc/-zts.d/
 
-[ -d servers/${host}/php-fpm/php-zts.d ] && ./scripts/sync  servers/${host}/php-fpm/php-zts.d/   ${host}:/etc/-zts.d/
+[ -f ${EO_CONF}/php-fpm/php-fpm.conf ] && ./scripts/sync  ${EO_CONF}/php-fpm/php-fpm.conf   ${EO_HOST}:/etc/
 
-[ -f servers/${host}/php-fpm/php-fpm.conf ] && ./scripts/sync  servers/${host}/php-fpm/php-fpm.conf   ${host}:/etc/
+[ -d ${EO_CONF}/php-fpm/php-fpm.d ] && ./scripts/sync  ${EO_CONF}/php-fpm/php-fpm.d/   ${EO_HOST}:/etc/php-fpm.d/
 
-[ -d servers/${host}/php-fpm/php-fpm.d ] && ./scripts/sync  servers/${host}/php-fpm/php-fpm.d/   ${host}:/etc/php-fpm.d/
-
-./scripts/reload    ${host} php-fpm
+./scripts/reload    ${EO_HOST} php-fpm

@@ -1,16 +1,10 @@
 #!/usr/bin/env bash
 
-set -e
-
-if [ "${1}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-else
-    host=${1}
-fi
+source  ./scripts/_init.sh
 
 CONF_DIR=/etc/openresty
 
-ssh     ${host}    <<EOF
+./scripts/run   ${EO_HOST}    <<EOF
 set -e
 
 id      -u      nginx >/dev/null 2>&1    ||  useradd -M -s /sbin/nologin nginx
@@ -27,6 +21,6 @@ yum --disablerepo="*" --enablerepo="openresty"  info installed openresty > /dev/
 mkdir   -p      ${CONF_DIR}/service
 EOF
 
-./scripts/sync  files/openresty/service/     ${host}:${CONF_DIR}/service/
+./scripts/sync  files/openresty/service/     ${EO_HOST}:${CONF_DIR}/service/
 
-./scripts/openresty/conf-update     ${host}
+./scripts/openresty/conf-update     ${EO_HOST}

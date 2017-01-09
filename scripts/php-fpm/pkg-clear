@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
+source  ./scripts/_init.sh
 
-if [ "${1}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-else
-    host=${1}
-fi
-
-ssh ${host} 'yum remove -y php*'
+./scripts/run   ${EO_HOST} 'yum remove -y php*'

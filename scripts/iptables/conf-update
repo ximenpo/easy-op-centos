@@ -1,14 +1,8 @@
 #!/usr/bin/env bash
 
-set -e
+source  ./scripts/_init.sh
 
-if [ "${1}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-else
-    host=${1}
-fi
+[ -f ${EO_CONF}/iptables/iptables ] &&
+    ./scripts/sync  ${EO_CONF}/iptables/iptables  ${EO_HOST}:/etc/sysconfig/iptables
 
-[ -f servers/${host}/iptables/iptables ] &&
-    ./scripts/sync  servers/${host}/iptables/iptables  ${host}:/etc/sysconfig/iptables
-
-./scripts/reload    ${host} iptables
+./scripts/reload    ${EO_HOST} iptables

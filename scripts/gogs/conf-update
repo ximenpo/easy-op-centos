@@ -1,25 +1,19 @@
 #!/usr/bin/env bash
 
-set -e
-
-if [ "${1}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-else
-    host=${1}
-fi
+source  ./scripts/_init.sh
 
 INSTALL_ROOT=/home/git
 
-./scripts/sync  servers/${host}/gogs/custom/     ${host}:${INSTALL_ROOT}/gogs/custom/
+./scripts/sync  ${EO_CONF}/gogs/custom/     ${EO_HOST}:${INSTALL_ROOT}/gogs/custom/
 
-ssh     ${host}    <<EOF
-command -v systemctl > /dev/null 2>&1 && {
-    systemctl   enable  ${INSTALL_ROOT}/gogs/scripts/systemd/gogs.service
-}
-command -v systemctl > /dev/null 2>&1 || {
-    cp          -f      ${INSTALL_ROOT}/gogs/scripts/init/centos/gogs  /etc/init.d/
-    chomod      755     /etc/init.d/gogs
-}
+./scripts/run   ${EO_HOST}    <<EOF
+    command -v systemctl > /dev/null 2>&1 && {
+        systemctl   enable  ${INSTALL_ROOT}/gogs/scripts/systemd/gogs.service
+    }
+    command -v systemctl > /dev/null 2>&1 || {
+        cp          -f      ${INSTALL_ROOT}/gogs/scripts/init/centos/gogs  /etc/init.d/
+        chomod      755     /etc/init.d/gogs
+    }
 EOF
 
-./scripts/reload    ${host} gogs
+./scripts/reload    ${EO_HOST}  gogs

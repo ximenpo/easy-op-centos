@@ -1,21 +1,15 @@
 #!/usr/bin/env bash
 
-set -e
-
-if [ "${1}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-else
-    host=${1}
-fi
+source  ./scripts/_init.sh
 
 easyrsa_dir=
-for d in $(ssh ${host} find /usr/share/easy-rsa/ -mindepth 1 -maxdepth 1 -type d) ;do
+for d in $(./scripts/run ${EO_HOST} find /usr/share/easy-rsa/ -mindepth 1 -maxdepth 1 -type d) ;do
     easyrsa_dir=$d
 done
 if [ "$easyrsa_dir" = "" ] ;then
     echo    ERROR: easy-rsa directory not found
 else
-    mkdir   -p      servers/${host}/_secret/openvpn/keys/
-    ./scripts/sync  ${host}:$easyrsa_dir/keys/  servers/${host}/_secret/openvpn/keys/
-    ssh     ${host} "cd ${easyrsa_dir}; source vars;./clean-all"
+    mkdir   -p      ${EO_CONF}/_secret/openvpn/keys/
+    ./scripts/sync  ${EO_HOST}:$easyrsa_dir/keys/  ${EO_CONF}/_secret/openvpn/keys/
+    ./scripts/run   ${EO_HOST} "cd ${easyrsa_dir}; source vars;./clean-all"
 fi

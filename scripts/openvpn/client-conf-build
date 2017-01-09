@@ -1,20 +1,15 @@
 #!/usr/bin/env bash
 
-set -e
+source  ./scripts/_init.sh
 
-if [ "${2}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-    client=${1}
-else
-    host=${1}
-    client=${2}
+client=${1}
+
+if [ -d ${EO_CONF}/_secret/openvpn/${client} ] ;then
+    rm  -rf ${EO_CONF}/_secret/openvpn/${client}
 fi
 
-if [ -d servers/${host}/_secret/openvpn/${client} ] ;then
-    rm  -rf servers/${host}/_secret/openvpn/${client}
-fi
-mkdir   -p  servers/${host}/_secret/openvpn/${client}
-pushd   servers/${host}/_secret/openvpn/keys/    > /dev/null 2>&1
-cp  ../../../openvpn/client.conf  ../${client}/${host}.ovpn
+mkdir   -p  ${EO_CONF}/_secret/openvpn/${client}
+pushd   ${EO_CONF}/_secret/openvpn/keys/    > /dev/null 2>&1
+cp  ../../../openvpn/client.conf  ../${client}/${EO_HOST}.ovpn
 cp  ca.crt ta.key ${client}.crt ${client}.csr ${client}.key   ../${client}/
 popd    > /dev/null 2>&1

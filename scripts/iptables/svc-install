@@ -1,13 +1,26 @@
 #!/usr/bin/env bash
 
+source  ./scripts/_init.sh
+
+./scripts/run   ${EO_HOST}  <<'EOF'
+#!/usr/bin/env bash
+
 set -e
 
-if [ "${1}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-else
-    host=${1}
-fi
+yum list installed  iptables   >/dev/null 2>&1  ||   yum     install -y  iptables
 
-./scripts/run-script   ${host}  files/iptables/install.sh
+command -v systemctl > /dev/null 2>&1 && {
+    yum list installed  iptables-services   >/dev/null 2>&1  ||   yum     install -y  iptables-services
+    [ "$(systemctl is-active firewalld.service)" = "active" ] && systemctl   stop   firewalld.service
+    [ "$(systemctl is-enabled firewalld.service)" = "enabled" ] && systemctl   disable   firewalld.service
+}
 
-./scripts/iptables/conf-update ${host}
+command -v systemctl > /dev/null 2>&1 || {
+    chkconfig   firewalld   off
+    service     firewalld   stop
+}
+
+exit    0
+EOF
+
+./scripts/iptables/conf-update ${EO_HOST}

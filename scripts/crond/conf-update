@@ -1,28 +1,22 @@
 #!/usr/bin/env bash
 
-set -e
-
-if [ "${1}" = "" ] ;then
-    host=${EASY_OP_SSH_HOST}
-else
-    host=${1}
-fi
+source  ./scripts/_init.sh
 
 for item in crontab cron.allow cron.deny anacrontab ; do
-    [ -f servers/${host}/etc/crontab ] &&
-        ./scripts/sync  servers/${host}/crond/etc/$item  ${host}:/etc/$item
+    [ -f ${EO_CONF}/etc/crontab ] &&
+        ./scripts/sync  ${EO_CONF}/crond/etc/$item  ${EO_HOST}:/etc/$item
 done
 
 for item in cron.d cron.hourly cron.daily cron.weekly cron.monthly ; do
-    [ -d servers/${host}/etc/crontab ] &&
-        ./scripts/sync  servers/${host}/crond/etc/$item ${host}:/etc/$item \
+    [ -d ${EO_CONF}/etc/crontab ] &&
+        ./scripts/sync  ${EO_CONF}/crond/etc/$item ${EO_HOST}:/etc/$item \
             --exclude="0hourly"                 \
             --exclude="0anacron"                \
             --exclude="logrotate"               \
             --exclude="man-db.cron"
 done
 
-[ -d servers/${host}/cron ] &&
-    ./scripts/sync  servers/${host}/crond/cron ${host}:/var/spool/cron/
+[ -d ${EO_CONF}/cron ] &&
+    ./scripts/sync  ${EO_CONF}/crond/cron ${EO_HOST}:/var/spool/cron/
 
-./scripts/reload    ${host} crond
+./scripts/reload    ${EO_HOST} crond

@@ -3,9 +3,10 @@
 source  ./scripts/_init.sh
 
 svc=${1}
+shift
 
 if [ -x ./scripts/${svc}/svc-stop ] ; then
-    ./scripts/${svc}/svc-stop   ${EO_HOST}
+    ./scripts/${svc}/svc-stop   ${EO_HOST}  $@
 else
     ./scripts/run               ${EO_HOST}  <<EOF
 #!/usr/bin/env bash

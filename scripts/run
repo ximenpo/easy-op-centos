@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
+source  ./scripts/_init.sh
 
-ssh ${EASY_OP_SSH_HOST} ${@}
+ssh ${EO_HOST}  ${@}

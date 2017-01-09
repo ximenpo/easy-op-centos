@@ -14,4 +14,4 @@ rsync   -avz -e 'ssh'                                       \
         --exclude=".gitignore"                              \
         ${@}                                                \
         ${SYNC_SRC}                                         \
-        ${SYNC_DEST} 
+        ${SYNC_DEST}

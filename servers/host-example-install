@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+group=${1}
+host=${2}
+host_lan=${3}
+
+[ -z "${group}" ] && group=servers
+[ -z "${host}" ] && host=host.example
+[ -z "${host_lan}" ] && host_lan=${host}
+
+echo    ------------------------------------------
+echo    -- BEGIN ${group}/${host}
+echo    ------------------------------------------
+source	_init.sh  ${group}   ${host}
+
+echo    ------------------------------------------
+echo    -- 1. copy login key to server  ??
+echo    ------------------------------------------
+ssh-keygen -R ${host}
+./scripts/sshd/login-key-push   ~/private/keys/ssh_key/hejb.login
+./scripts/sshd/conf-update
+
+echo    ------------------------------------------
+echo    -- 2. init basic utils
+echo    ------------------------------------------
+./scripts/init
+
+echo    ------------------------------------------
+echo    -- 3. install OpenVPN service
+echo    ------------------------------------------
+./scripts/install   openvpn
+
+echo    ------------------------------------------
+echo    -- 4. build client key now      ??
+echo    ------------------------------------------
+./scripts/openvpn/client-key-gen    client
+./scripts/openvpn/keys-backup
+./scripts/openvpn/client-conf-build client
+
+echo    ------------------------------------------
+echo    -- 5. wait for VPN connect ...  ??
+echo    ------------------------------------------
+echo
+echo    Now we will use ${host_lan} for target
+echo
+read    -p 'please connect OpenVPN and press ENTER to continue ...'
+ssh-keygen -R ${host_lan}
+host=${host_lan}
+source	_init.sh  ${group}   ${host}
+
+echo    ------------------------------------------
+echo    -- 6. update tcpwrapper config
+echo    ------------------------------------------
+./scripts/etc/tcpwrapper-update
+
+echo    ------------------------------------------
+echo    -- 7. install firewalld service
+echo    ------------------------------------------
+./scripts/install   firewalld
+sleep   3
+
+echo    ------------------------------------------
+echo    -- 8. update system packages
+echo    ------------------------------------------
+./scripts/run   'yum update -y'
+
+echo    ------------------------------------------
+echo    -- 9. install data disk
+echo    ------------------------------------------
+./scripts/run-script    files/aliyun-ecs/data-disk-init.sh
+
+echo    ------------------------------------------
+echo    -- 10. install GOGS service
+echo    ------------------------------------------
+./scripts/install   gogs
+
+echo    ------------------------------------------
+echo    -- 11. install OpenResty service
+echo    ------------------------------------------
+./scripts/install   openresty
+
+echo    ------------------------------------------
+echo    -- 12. install php-fpm service
+echo    ------------------------------------------
+./scripts/php-fpm/pkg-clear
+./scripts/install   php-fpm
+
+echo    ------------------------------------------
+echo    -- END.
+echo    ------------------------------------------

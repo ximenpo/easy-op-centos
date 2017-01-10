@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-#   Usage:  source _init.sh [default_group] [default_host]
+#   Usage:  source _init.sh [default_host] [default_group]
 #
 
 # install rsync
@@ -14,8 +14,8 @@ command -v rsync > /dev/null 2>&1  ||  {
 }
 
 # init conf
-EASYOP_GROUP="${1}"
-EASYOP_HOST="${2}"
+EASYOP_HOST="${1}"
+EASYOP_GROUP="${2}"
 
 if [ -z "${EASYOP_GROUP}" ]; then
     EASYOP_GROUP=servers

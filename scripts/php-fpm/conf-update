@@ -2,14 +2,19 @@
 
 source  ./scripts/_init.sh
 
-[ -f ${EO_CONF}/php-fpm/php.ini ] && ./scripts/sync  ${EO_CONF}/php-fpm/php.ini   ${EO_HOST}:/etc/
+EO_SVC=php-fpm
 
-[ -d ${EO_CONF}/php-fpm/php.d ] && ./scripts/sync  ${EO_CONF}/php-fpm/php.d/   ${EO_HOST}:/etc/php.d/
+for conf_file in etc/php.ini etc/php-fpm.conf ; do
+    if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
+done
 
-[ -d ${EO_CONF}/php-fpm/php-zts.d ] && ./scripts/sync  ${EO_CONF}/php-fpm/php-zts.d/   ${EO_HOST}:/etc/-zts.d/
-
-[ -f ${EO_CONF}/php-fpm/php-fpm.conf ] && ./scripts/sync  ${EO_CONF}/php-fpm/php-fpm.conf   ${EO_HOST}:/etc/
-
-[ -d ${EO_CONF}/php-fpm/php-fpm.d ] && ./scripts/sync  ${EO_CONF}/php-fpm/php-fpm.d/   ${EO_HOST}:/etc/php-fpm.d/
+for conf_dir in etc/php.d etc/php-zts.d etc/php-fpm.d ; do
+    if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/"  "${EO_HOST}:/${conf_dir}/" \
+            --exclude="dummy"
+    fi
+done
 
 ./scripts/reload    ${EO_HOST} php-fpm

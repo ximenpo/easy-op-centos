@@ -2,11 +2,12 @@
 
 source  ./scripts/_init.sh
 
-CONF_DIR=/etc/docker
+EO_SVC=docker
 
-for f in daemon.json ; do
-    [ -f ${EO_CONF}/docker/${f} ] &&
-        ./scripts/sync  ${EO_CONF}/docker/${f}  ${EO_HOST}:${CONF_DIR}/${f}
+for conf_file in etc/docker/daemon.json  ; do
+    if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
 done
 
 ./scripts/reload    ${EO_HOST} docker

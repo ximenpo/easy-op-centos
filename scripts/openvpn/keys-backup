@@ -9,7 +9,7 @@ done
 if [ "$easyrsa_dir" = "" ] ;then
     echo    ERROR: easy-rsa directory not found
 else
-    mkdir   -p      ${EO_CONF}/_secret/openvpn/keys/
-    ./scripts/sync  ${EO_HOST}:$easyrsa_dir/keys/  ${EO_CONF}/_secret/openvpn/keys/
+    mkdir   -p      ${EO_CONF}/_secrets/openvpn/keys/
+    ./scripts/sync  ${EO_HOST}:$easyrsa_dir/keys/  ${EO_CONF}/_secrets/openvpn/keys/
     ./scripts/run   ${EO_HOST} "cd ${easyrsa_dir}; source vars;./clean-all"
 fi

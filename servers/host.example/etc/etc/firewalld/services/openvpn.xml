@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>OpenVPN Service</short>
+  <description>Suppor for OpenVPN 1194/tcp port.</description>
+  <port protocol="tcp" port="1194"/>
+</service>

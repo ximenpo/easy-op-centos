@@ -2,7 +2,12 @@
 
 source  ./scripts/_init.sh
 
-[ -f ${EO_CONF}/iptables/iptables ] &&
-    ./scripts/sync  ${EO_CONF}/iptables/iptables  ${EO_HOST}:/etc/sysconfig/iptables
+EO_SVC=iptables
+
+for conf_file in etc/sysconfig/iptables ; do
+    if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
+done
 
 ./scripts/reload    ${EO_HOST} iptables

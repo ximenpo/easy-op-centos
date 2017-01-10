@@ -2,21 +2,30 @@
 
 source  ./scripts/_init.sh
 
-for item in crontab cron.allow cron.deny anacrontab ; do
-    [ -f ${EO_CONF}/etc/crontab ] &&
-        ./scripts/sync  ${EO_CONF}/crond/etc/$item  ${EO_HOST}:/etc/$item
+EO_SVC=crond
+
+for conf_file in etc/crontab etc/cron.allow etc/cron.deny etc/anacrontab ; do
+    if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
 done
 
-for item in cron.d cron.hourly cron.daily cron.weekly cron.monthly ; do
-    [ -d ${EO_CONF}/etc/crontab ] &&
-        ./scripts/sync  ${EO_CONF}/crond/etc/$item ${EO_HOST}:/etc/$item \
+for conf_dir in etc/cron.d etc/cron.hourly etc/cron.daily etc/cron.weekly etc/cron.monthly ; do
+    if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/"  "${EO_HOST}:/${conf_dir}/" \
+            --exclude="dummy"                   \
             --exclude="0hourly"                 \
             --exclude="0anacron"                \
             --exclude="logrotate"               \
             --exclude="man-db.cron"
+    fi
 done
 
-[ -d ${EO_CONF}/cron ] &&
-    ./scripts/sync  ${EO_CONF}/crond/cron ${EO_HOST}:/var/spool/cron/
+for conf_dir in var/spool/cron ; do
+    if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/"  "${EO_HOST}:/${conf_dir}/" \
+            --exclude="dummy"
+    fi
+done
 
 ./scripts/reload    ${EO_HOST} crond

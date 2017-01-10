@@ -2,17 +2,24 @@
 
 source  ./scripts/_init.sh
 
-CONF_DIR=/etc/openresty
+EO_SVC=openresty
 
-./scripts/sync  ${EO_CONF}/openresty/conf/      ${EO_HOST}:${CONF_DIR}/conf/
+CFG_DIR=/etc/openresty
+
+for conf_dir in etc/openresty/conf ; do
+    if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/"  "${EO_HOST}:/${conf_dir}/" \
+            --exclude="dummy"
+    fi
+done
 
 # start service
 ./scripts/run       ${EO_HOST}    <<EOF
     command -v systemctl > /dev/null 2>&1 && {
-        systemctl   enable      ${CONF_DIR}/service/openresty.service
+        systemctl   enable      ${CFG_DIR}/service/openresty.service
     }
     command -v systemctl > /dev/null 2>&1 || {
-        cp          -f          ${CONF_DIR}/service/openresty  /etc/init.d/
+        cp          -f          ${CFG_DIR}/service/openresty  /etc/init.d/
         chomod      755         /etc/init.d/openresty
     }
 EOF

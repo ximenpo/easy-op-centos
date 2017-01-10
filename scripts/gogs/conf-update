@@ -2,9 +2,16 @@
 
 source  ./scripts/_init.sh
 
+EO_SVC=gogs
+
 INSTALL_ROOT=/home/git
 
-./scripts/sync  ${EO_CONF}/gogs/custom/     ${EO_HOST}:${INSTALL_ROOT}/gogs/custom/
+for conf_dir in gogs/custom ; do
+    if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/"  "${EO_HOST}:${INSTALL_ROOT}/${conf_dir}/" \
+            --exclude="dummy"
+    fi
+done
 
 ./scripts/run   ${EO_HOST}    <<EOF
     command -v systemctl > /dev/null 2>&1 && {

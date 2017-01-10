@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+source  ./scripts/_init.sh
+
+for conf_file in etc/ssh/ssh_config etc/ssh/sshd_config ; do
+    if [ -f "${EO_CONF}/sshd/${conf_file}" ] ;then
+        ./scripts/sync  "${EO_CONF}/sshd/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
+done
+
+./scripts/reload    ${EO_HOST} sshd

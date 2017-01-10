@@ -2,4 +2,9 @@
 
 source  ./scripts/_init.sh
 
-./scripts/sync  ${EO_CONF}/etc/hosts    ${EO_HOST}:/etc/
+for conf_file in etc/hosts ; do
+    #ls -l   "${EO_CONF}/etc/${conf_file}"
+    if [ -f "${EO_CONF}/etc/${conf_file}" ] ;then
+        ./scripts/sync  "${EO_CONF}/etc/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
+done

@@ -2,7 +2,12 @@
 
 source  ./scripts/_init.sh
 
-[ -f ${EO_CONF}/ntpd/ntp.conf ] &&
-    ./scripts/sync  ${EO_CONF}/ntpd/ntp.conf  ${EO_HOST}:/etc/ntp.conf
+EO_SVC=ntpd
+
+for conf_file in etc/ntp.conf ; do
+    if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
+done
 
 ./scripts/reload    ${EO_HOST} ntpd

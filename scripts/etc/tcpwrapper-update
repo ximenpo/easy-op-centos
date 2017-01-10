@@ -2,5 +2,10 @@
 
 source  ./scripts/_init.sh
 
-./scripts/sync  ${EO_CONF}/etc/hosts.allow     ${EO_HOST}:/etc/
-./scripts/sync  ${EO_CONF}/etc/hosts.deny      ${EO_HOST}:/etc/
+EO_SVC=etc
+
+for conf_file in etc/hosts.allow  etc/hosts.deny ; do
+    if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
+done

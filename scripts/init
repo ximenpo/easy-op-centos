@@ -3,7 +3,7 @@
 source  ./scripts/_init.sh
 
 ./scripts/run   ${EO_HOST} <<'EOF'
-set -ev
+set -e
     command -v   rsync   >/dev/null 2>&1   ||  yum install -y rsync
     command -v   curl    >/dev/null 2>&1   ||  yum install -y curl
 

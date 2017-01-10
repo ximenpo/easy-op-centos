@@ -1,4 +1,2 @@
-/ansible.cfg
-/servers
-/logs
-/_*
+/*.*/
+/_*/

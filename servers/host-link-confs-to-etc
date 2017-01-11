@@ -1,13 +1,21 @@
 #!/usr/bin/env bash
 
+group=$(dirname $0)
 host=${1}
 shift
 
-svcs=$@
-[ -z "${svcs}" ]    &&  svcs=(crond docker firewalld iptables ntpd openresty php-fpm sshd)
+[ -z "${host}" ]    &&  host=host.example
+[ -d "${group}/${host}" ] || {
+    echo    "ERROR: [${group}/${host}] not found"
+    exit    1
+}
 
-pushd  $(dirname $0)/${1}
-for item in ${svcs} ; do
-    [ ! -e ${item} ]    ||    ln  -s  etc     ${item}
-done
+svcs=($@)
+[ -z "${svcs}" ]    &&  svcs=(crond docker firewalld iptables ntpd openresty php-fpm sshd yum)
+
+pushd  "${group}/${host}"
+    for item in ${svcs[@]} ; do
+        #echo    "${item}"
+        [ -e "${item}" ]    ||    ln  -s  etc     "${item}"
+    done
 popd

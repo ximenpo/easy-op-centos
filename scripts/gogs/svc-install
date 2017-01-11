@@ -27,5 +27,4 @@ rm      -rf     ${INSTALL_ROOT}/gogs
 tar     -zxf    ${DWONLOAD_FILE}
 EOF
 
-./scripts/gogs/conf-update  ${EO_HOST}
-./scripts/reload            ${EO_HOST}  gogs
+./scripts/update-conf-and-reload    ${EO_HOST}  gogs

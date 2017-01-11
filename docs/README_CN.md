@@ -125,6 +125,24 @@ Usage:  source _init.sh [default_host] [default_group]
 ./scripts/stop		openvpn
 ```
 
+#### update-conf
+
+更新服务配置
+```
+./scripts/update-conf		myzoo.cn	openvpn
+#或使用缺省服务器
+./scripts/update-conf		openvpn
+```
+
+#### update-conf-and-reload
+
+更新服务配置并重启服务
+```
+./scripts/update-conf-and-reload		myzoo.cn	openvpn
+#或使用缺省服务器
+./scripts/update-conf-and-reload		openvpn
+```
+
 ### scripts/crond
 
 | 脚本          | 功能     | 备注   |

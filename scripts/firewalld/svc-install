@@ -19,5 +19,4 @@ command -v systemctl > /dev/null 2>&1 && {
 exit    0
 EOF
 
-./scripts/firewalld/conf-update ${EO_HOST}
-./scripts/reload                ${EO_HOST}  firewalld
+./scripts/update-conf-and-reload    ${EO_HOST}  firewalld

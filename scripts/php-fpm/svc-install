@@ -10,5 +10,4 @@ else
     ./scripts/php-fpm/pkg-install   ${EO_HOST} $@
 fi
 
-./scripts/php-fpm/conf-update   ${EO_HOST}
-./scripts/reload                ${EO_HOST}  php-fpm
+./scripts/update-conf-and-reload    ${EO_HOST}  php-fpm

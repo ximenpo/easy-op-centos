@@ -22,5 +22,4 @@ EOF
 ./scripts/reload     ${EO_HOST}    docker
 ./scripts/stop       ${EO_HOST}    docker
 
-./scripts/docker/conf-update    ${EO_HOST}
-./scripts/reload                ${EO_HOST}  docker
+./scripts/update-conf-and-reload    ${EO_HOST}  docker

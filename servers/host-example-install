@@ -17,8 +17,8 @@ echo    ------------------------------------------
 echo    -- 1. copy login key to server  ??
 echo    ------------------------------------------
 ssh-keygen -R ${host}
-./scripts/sshd/login-key-push   ~/private/keys/ssh_key/hejb.login
-./scripts/sshd/conf-update
+./scripts/sshd/login-key-push       ~/.ssh/ssh_key
+./scripts/update-conf-and-reload    sshd
 
 echo    ------------------------------------------
 echo    -- 2. init basic utils

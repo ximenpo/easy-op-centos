@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+source  ./scripts/_init.sh
+
+svc=${1}
+shift
+
+./scripts/update-conf   ${svc}  $@
+./scripts/reload        ${svc}  $@

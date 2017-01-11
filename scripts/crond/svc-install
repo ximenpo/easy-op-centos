@@ -12,5 +12,4 @@ yum list installed  crontabs   >/dev/null 2>&1  ||   yum     install -y  crontab
 exit    0
 EOF
 
-./scripts/crond/conf-update ${EO_HOST}
-./scripts/reload            ${EO_HOST}  crond
+./scripts/update-conf-and-reload    ${EO_HOST}  crond

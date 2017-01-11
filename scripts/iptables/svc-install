@@ -23,5 +23,4 @@ command -v systemctl > /dev/null 2>&1 || {
 exit    0
 EOF
 
-./scripts/iptables/conf-update  ${EO_HOST}
-./scripts/reload                ${EO_HOST}  iptables
+./scripts/update-conf-and-reload    ${EO_HOST}  iptables

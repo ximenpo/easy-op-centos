@@ -11,7 +11,7 @@ shift
 }
 
 svcs=($@)
-[ -z "${svcs}" ]    &&  svcs=(crond docker firewalld iptables ntpd openresty php-fpm rsyslog sshd yum)
+[ -z "${svcs}" ]    &&  svcs=(crond docker firewalld iptables logrotate ntpd openresty php-fpm rsyslog sshd yum)
 
 pushd  "${group}/${host}"
     for item in ${svcs[@]} ; do

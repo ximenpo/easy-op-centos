@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+source  ./scripts/_init.sh
+
+EO_SVC=logrotate
+
+for conf_file in etc/logrotate.conf ; do
+    if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
+done
+
+for conf_dir in etc/logrotate.d ; do
+    if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
+        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/"  "${EO_HOST}:/${conf_dir}/" \
+            --exclude="dummy"
+    fi
+done

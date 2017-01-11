@@ -6,8 +6,10 @@ svc=${1}
 shift
 
 if [ -x ./scripts/${svc}/svc-install ] ; then
-    ./scripts/${svc}/svc-install    "${EO_HOST}"    $@
+    ./scripts/${svc}/svc-install        "${EO_HOST}"    $@
 else
-    ./scripts/run                   "${EO_HOST}"    \
-            "yum list installed ${svc} >/dev/null 2>&1  ||yum install -y ${svc}"
+    ./scripts/run                       "${EO_HOST}"    <<EOF
+    yum list installed ${svc} >/dev/null 2>&1  ||yum install -y ${svc}
+EOF
+    ./scripts/update-conf-and-reload    "${EO_HOST}"    ${svc}  $@
 fi

@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-source  ./scripts/_init.sh
-
-./scripts/run   ${EO_HOST}  'yum list installed sshd >/dev/null 2>&1 || yum install -y  sshd'
-
-./scripts/update-conf-and-reload    ${EO_HOST}  sshd

@@ -23,13 +23,13 @@ command -v systemctl > /dev/null 2>&1 && {
         systemctl   start               ${svc}.service
     }
     echo        ----------------------
-    systemctl   status                  ${svc}.service      ||  echo ''
+    systemctl   status                  ${svc}.service      ||  true
 }
 command -v systemctl > /dev/null 2>&1 || {
     chkconfig   ${svc}      on
     service     ${svc}      reload
     echo        ----------------------
-    service     ${svc}      status      ||  echo ''
+    service     ${svc}      status      ||  true
 }
 
 exit    0

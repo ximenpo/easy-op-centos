@@ -13,14 +13,14 @@ command -v systemctl > /dev/null 2>&1 && {
     }
     systemctl   disable     openvpn@server.service
     echo        ----------------------
-    systemctl   status      openvpn@server.service      ||  echo ''
+    systemctl   status      openvpn@server.service      ||  true
 }
 
 command -v systemctl > /dev/null 2>&1   || {
     chkconfig   openvpn     off
     service     openvpn     stop
     echo        ----------------------
-    service     openvpn     status      ||  echo ''
+    service     openvpn     status      ||  true
 }
 
 exit    0

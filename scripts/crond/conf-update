@@ -12,12 +12,12 @@ done
 
 for conf_dir in etc/cron.d etc/cron.hourly etc/cron.daily etc/cron.weekly etc/cron.monthly ; do
     if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
-        ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/"  "${EO_HOST}:/${conf_dir}/" \
-            --exclude="dummy"                   \
-            --exclude="0hourly"                 \
-            --exclude="0anacron"                \
-            --exclude="logrotate"               \
-            --exclude="man-db.cron"
+        for conf_file in $(ls "${EO_CONF}/${EO_SVC}/${conf_dir}/") ; do
+            if [ -f "${EO_CONF}/${EO_SVC}/${conf_dir}/${conf_file}" ] ;then
+                ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/${conf_file}"  "${EO_HOST}:/${conf_dir}/${conf_file}"\
+                    --exclude="dummy"
+            fi
+        done
     fi
 done
 

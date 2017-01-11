@@ -10,7 +10,7 @@ else
 fi
 
 # EO_HOST means the target server
-if [ -n "${1}" ] && [ -e "${EASYOP_GROUP}/${1}" ]; then
+if [ -n "${1}" ] && [ -e "${EO_GROUP}/${1}" ]; then
     EO_HOST="${1}"
     shift
 else

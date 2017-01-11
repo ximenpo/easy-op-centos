@@ -17,6 +17,9 @@ command -v rsync > /dev/null 2>&1  ||  {
 EASYOP_HOST="${1}"
 EASYOP_GROUP="${2}"
 
+if [ -z "${EASYOP_HOST}" ]; then
+    EASYOP_HOST=host.example
+fi
 if [ -z "${EASYOP_GROUP}" ]; then
     EASYOP_GROUP=servers
 fi

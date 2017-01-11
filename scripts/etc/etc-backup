@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+source  ./scripts/_init.sh
+
+EO_SVC=etc
+
+for conf_dir in etc ; do
+    mkdir   -p      "${EO_CONF}/_backup/${conf_dir}/"
+    ./scripts/sync  "${EO_HOST}:/${conf_dir}/"    "${EO_CONF}/_backup/${conf_dir}/"
+done

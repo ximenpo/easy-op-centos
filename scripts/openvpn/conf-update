@@ -19,5 +19,3 @@ if [ "$easyrsa_dir" = "" ] ;then
 else
     ./scripts/sync  ${EO_CONF}/${EO_SVC}/easy-rsa/vars    ${EO_HOST}:$easyrsa_dir/
 fi
-
-./scripts/reload    ${EO_HOST} openvpn

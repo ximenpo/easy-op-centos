@@ -20,3 +20,4 @@ exit    0
 EOF
 
 ./scripts/firewalld/conf-update ${EO_HOST}
+./scripts/reload                ${EO_HOST}  firewalld

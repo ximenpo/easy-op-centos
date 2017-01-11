@@ -11,3 +11,4 @@ else
 fi
 
 ./scripts/php-fpm/conf-update   ${EO_HOST}
+./scripts/reload                ${EO_HOST}  php-fpm

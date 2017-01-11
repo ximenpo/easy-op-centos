@@ -16,5 +16,3 @@ for conf_dir in etc/php.d etc/php-zts.d etc/php-fpm.d ; do
             --exclude="dummy"
     fi
 done
-
-./scripts/reload    ${EO_HOST} php-fpm

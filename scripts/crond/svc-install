@@ -13,3 +13,4 @@ exit    0
 EOF
 
 ./scripts/crond/conf-update ${EO_HOST}
+./scripts/reload            ${EO_HOST}  crond

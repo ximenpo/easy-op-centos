@@ -39,4 +39,4 @@ yum list    installed   openvpn > /dev/null 2>&1     ||  {
 exit    0
 EOF
 ./scripts/openvpn/conf-update   ${EO_HOST}
-./scripts/reload                ${EO_HOST}
+./scripts/reload                ${EO_HOST}  openvpn

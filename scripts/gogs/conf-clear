@@ -5,5 +5,3 @@ source  ./scripts/_init.sh
 INSTALL_ROOT=/home/git
 
 ./scripts/run       ${EO_HOST}  "rm  -rf ${INSTALL_ROOT}/gogs/custom"
-
-./scripts/reload    ${EO_HOST}  gogs

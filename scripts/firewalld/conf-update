@@ -10,5 +10,3 @@ for conf_dir in etc/firewalld ; do
             --exclude="dummy"
     fi
 done
-
-./scripts/reload    ${EO_HOST} firewalld

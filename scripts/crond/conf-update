@@ -27,5 +27,3 @@ for conf_dir in var/spool/cron ; do
             --exclude="dummy"
     fi
 done
-
-./scripts/reload    ${EO_HOST} crond

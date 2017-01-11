@@ -22,5 +22,3 @@ done
         chomod      755     /etc/init.d/gogs
     }
 EOF
-
-./scripts/reload    ${EO_HOST}  gogs

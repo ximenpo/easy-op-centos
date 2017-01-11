@@ -24,3 +24,4 @@ EOF
 ./scripts/sync  files/openresty/service/     ${EO_HOST}:${CONF_DIR}/service/
 
 ./scripts/openresty/conf-update     ${EO_HOST}
+./scripts/reload                    ${EO_HOST}  openresty

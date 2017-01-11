@@ -28,3 +28,4 @@ tar     -zxf    ${DWONLOAD_FILE}
 EOF
 
 ./scripts/gogs/conf-update  ${EO_HOST}
+./scripts/reload            ${EO_HOST}  gogs

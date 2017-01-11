@@ -23,5 +23,3 @@ done
         chomod      755         /etc/init.d/openresty
     }
 EOF
-
-./scripts/reload    ${EO_HOST} openresty

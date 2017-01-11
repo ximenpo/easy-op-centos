@@ -9,5 +9,3 @@ for conf_file in etc/ssh/ssh_config etc/ssh/sshd_config ; do
         ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
     fi
 done
-
-./scripts/reload    ${EO_HOST} sshd

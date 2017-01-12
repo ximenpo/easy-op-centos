@@ -4,6 +4,8 @@
 #   Usage:  source _init.sh [default_host] [default_group]
 #
 
+cd  `dirname ${BASH_SOURCE?}`
+
 # install rsync
 command -v rsync > /dev/null 2>&1  ||  {
     command -v yum > /dev/null 2>&1  &&  {

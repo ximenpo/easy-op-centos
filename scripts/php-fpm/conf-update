@@ -4,13 +4,13 @@ source  ./scripts/_init.sh
 
 EO_SVC=php-fpm
 
-for conf_file in etc/php.ini etc/php-fpm.conf ; do
+for conf_file in etc/{php.ini, php-fpm.conf} ; do
     if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
         ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
     fi
 done
 
-for conf_dir in etc/php.d etc/php-zts.d etc/php-fpm.d ; do
+for conf_dir in etc/{php.d, php-zts.d, php-fpm.d} ; do
     if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
         ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/"  "${EO_HOST}:/${conf_dir}/" \
             --exclude="dummy"

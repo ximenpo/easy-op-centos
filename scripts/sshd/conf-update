@@ -4,7 +4,7 @@ source  ./scripts/_init.sh
 
 EO_SVC=sshd
 
-for conf_file in etc/ssh/ssh_config etc/ssh/sshd_config ; do
+for conf_file in etc/ssh/{ssh_config, sshd_config} ; do
     if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
         ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
     fi

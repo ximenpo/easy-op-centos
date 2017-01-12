@@ -4,13 +4,13 @@ source  ./scripts/_init.sh
 
 EO_SVC=crond
 
-for conf_file in etc/crontab etc/cron.allow etc/cron.deny etc/anacrontab ; do
+for conf_file in etc/{crontab, cron.allow, cron.deny, anacrontab} ; do
     if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
         ./scripts/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
     fi
 done
 
-for conf_dir in etc/cron.d etc/cron.hourly etc/cron.daily etc/cron.weekly etc/cron.monthly ; do
+for conf_dir in etc/cron.{d, hourly, daily, weekly, monthly} ; do
     if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
         for conf_file in $(ls "${EO_CONF}/${EO_SVC}/${conf_dir}/") ; do
             if [ -f "${EO_CONF}/${EO_SVC}/${conf_dir}/${conf_file}" ] ;then

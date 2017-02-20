@@ -7,7 +7,7 @@ source  ./scripts/_init.sh
 
 set -e
 
-yum list installed  crontabs   >/dev/null 2>&1  ||   yum     install -y  crontabs cronie cronie-anacron
+rpm -q  crontabs   >/dev/null 2>&1  ||   yum     install -y  crontabs cronie cronie-anacron
 
 exit    0
 EOF

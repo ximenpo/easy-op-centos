@@ -14,7 +14,7 @@ cat /etc/sysctl.conf | grep "net\\.ipv4\\.ip_forward[ \t]*=[ \t]*1" > /dev/null 
 }
 
 # install openvpn
-yum list    installed   openvpn > /dev/null 2>&1     ||  {
+rpm -q  openvpn > /dev/null 2>&1     ||  {
     yum     install -y  openvpn easy-rsa
     # make cert
     easyrsa_dir=

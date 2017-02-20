@@ -2,6 +2,6 @@
 
 source  ./scripts/_init.sh
 
-./scripts/run   ${EO_HOST}  'yum list installed ntp >/dev/null 2>&1 || yum install -y  ntp'
+./scripts/run   ${EO_HOST}  'rpm -q ntp >/dev/null 2>&1 || yum install -y  ntp'
 
 ./scripts/update-conf-and-reload    ${EO_HOST}  ntpd

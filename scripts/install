@@ -9,7 +9,7 @@ if [ -x ./scripts/${svc}/svc-install ] ; then
     ./scripts/${svc}/svc-install        "${EO_HOST}"    $@
 else
     ./scripts/run                       "${EO_HOST}"    <<EOF
-    yum list installed ${svc} >/dev/null 2>&1  ||yum install -y ${svc}
+    rpm -q ${svc} >/dev/null 2>&1  ||yum install -y ${svc}
 EOF
     ./scripts/update-conf-and-reload    "${EO_HOST}"    ${svc}  $@
 fi

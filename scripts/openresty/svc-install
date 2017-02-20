@@ -10,8 +10,8 @@ set -e
 id      -u      nginx >/dev/null 2>&1    ||  useradd -M -s /sbin/nologin nginx
 
 yum repolist enabled    |   grep "Official OpenResty Repository" > /dev/null 2>&1    || {
-    yum info    installed   yum-utils > /dev/null 2>&1    ||
-        yum     install -y  yum-utils
+    rpm -q  yum-utils > /dev/null 2>&1    ||
+        yum install -y  yum-utils
     yum-config-manager --add-repo https://openresty.org/yum/centos/OpenResty.repo
 }
 

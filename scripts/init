@@ -4,10 +4,10 @@ source  ./scripts/_init.sh
 
 ./scripts/run   ${EO_HOST} <<'EOF'
 set -e
-    command -v   rsync   >/dev/null 2>&1   ||  yum install -y rsync
-    command -v   curl    >/dev/null 2>&1   ||  yum install -y curl
+    command -v   rsync      >/dev/null 2>&1     ||  yum install -y rsync
+    command -v   curl       >/dev/null 2>&1     ||  yum install -y curl
 
-    yum list    installed   epel-release> /dev/null 2>&1    || yum install -y epel-release
-    yum list    installed   yum-utils   > /dev/null 2>&1    || yum install -y yum-utils
-    yum list    installed   yum-cron    > /dev/null 2>&1    || yum install -y yum-cron
+    rpm -q  epel-release    >/dev/null 2>&1     || yum install -y epel-release
+    rpm -q  yum-utils       >/dev/null 2>&1     || yum install -y yum-utils
+    rpm -q  yum-cron        >/dev/null 2>&1     || yum install -y yum-cron
 EOF

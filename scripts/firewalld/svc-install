@@ -7,7 +7,7 @@ source  ./scripts/_init.sh
 
 set -e
 
-yum list installed  firewalld   >/dev/null 2>&1  ||   yum     install -y  firewalld
+rpm -q  firewalld   >/dev/null 2>&1  ||   yum     install -y  firewalld
 
 command -v systemctl > /dev/null 2>&1 && {
     [ "$(systemctl is-active iptables.service)" = "active" ] && systemctl   stop   iptables.service

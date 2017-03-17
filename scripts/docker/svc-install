@@ -2,12 +2,6 @@
 
 source  ./scripts/_init.sh
 
-########################################
-#   Note: suport CentOS 7 only
-########################################
-
-CONF_DIR=/etc/openresty
-
 ./scripts/run       ${EO_HOST}    <<'EOF'
     set     -e
     command -v      docker  >/dev/null 2>&1 ||  {

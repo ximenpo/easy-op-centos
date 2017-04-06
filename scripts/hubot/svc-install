@@ -5,12 +5,10 @@ source  ./scripts/_init.sh
 BOT_ROOT=${1}
 BOT_NAME=${BOT_ROOT##*/}
 
-./scripts/run   ${EO_HOST}  <<EOF
+./scripts/install   ${EO_HOST}  npm
+
+./scripts/run       ${EO_HOST}  <<EOF
 set -e
-rpm     -q  npm > /dev/null 2>&1 ||  yum install -y  npm
-command -v  npm > /dev/null 2>&1 || {
-    yum install -y  npm
-}
 command -v  npm > /dev/null 2>&1 && {
     mkdir   -p      ~/.config
     chmod   g+rwx   ~/.config

@@ -6,6 +6,9 @@ set -e
 DISK_FMT=${1:-xfs}
 DATA_DIR=${2:-/data}
 
+DATA_TOKEN=${DATA_DIR##*/}
+VG_NAME=vg_${DATA_TOKEN}
+LV_NAME=lv_${DATA_TOKEN}
 findmnt -m --target ${DATA_DIR} > /dev/null 2>&1 && {
     echo    ${DATA_DIR} has been mounted
 }
@@ -27,12 +30,21 @@ p
 1
 
 
+t
+8e
 wq
 EOF
-                partprobe /dev/${prefix}${label}
-                mkfs.ext3 /dev/${prefix}${label}1
+                partprobe               /dev/${prefix}${label}
+
+                pvcreate                /dev/${prefix}${label}1
+                vgcreate ${VG_NAME}     /dev/${prefix}${label}1
+                lvcreate    -l  $(vgdisplay ${VG_NAME} | grep "Total PE" | awk '{print $3}') \
+                            -n  ${LV_NAME}  \
+                            ${VG_NAME}
+
+                mkfs.${DISK_FMT}    -f  /dev/${VG_NAME}/${LV_NAME}
                 mkdir   -p  ${DATA_DIR}
-                cat /etc/fstab | grep ${DATA_DIR} > /dev/null 2>&1 || echo /dev/${prefix}${label}1 ${DATA_DIR} ext3 defaults,noatime,nodiratime,nodev 0 0 >> /etc/fstab
+                cat /etc/fstab | grep ${DATA_DIR} > /dev/null 2>&1 || echo /dev/${VG_NAME}/${LV_NAME} ${DATA_DIR} ${DISK_FMT} defaults,noatime,nodiratime,nodev 0 0 >> /etc/fstab
                 findmnt -m --target ${DATA_DIR} > /dev/null 2>&1   || mount -a
                 break   1
             }

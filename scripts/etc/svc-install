@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-source  ./scripts/_init.sh
-
-echo    [etc] is not a service
-exit    1

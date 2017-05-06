@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+INSTALL_ROOT=/home/git
+
+./services/run       ${EO_HOST}  "rm  -rf ${INSTALL_ROOT}/gogs/custom"

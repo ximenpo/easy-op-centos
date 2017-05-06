@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+./services/run   ${EO_HOST} '
+clean_sum=$(docker images | grep "<none>" | wc -l)
+if [[ $clean_sum -gt 0 ]]; then
+    docker images | grep "<none>" | awk "{ print $3 }" | xargs -r docker rmi
+fi
+'

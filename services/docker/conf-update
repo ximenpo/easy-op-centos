@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+EO_SVC=docker
+
+for conf_file in etc/docker/daemon.json  ; do
+    if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
+        ./services/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
+done

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+./services/run   ${EO_HOST} '
+clean_sum=$(docker volume ls -q -f dangling=true | wc -l)
+if [[ $clean_sum -gt 0 ]]; then
+    docker volume ls -q -f dangling=true | xargs docker volume rm
+fi
+'

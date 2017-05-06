@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+./services/run   ${EO_HOST}  <<EOF
+set -e
+rpm     -q  npm > /dev/null 2>&1 ||  yum install -y  npm
+command -v  npm > /dev/null 2>&1 || {
+    yum install -y  npm
+}
+command -v  npm > /dev/null 2>&1 && {
+    npm update  -g  n
+}
+EOF

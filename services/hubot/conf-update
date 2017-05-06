@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+EO_SVC=hubot

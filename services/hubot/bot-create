@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+BOT_ROOT=${1}
+BOT_NAME=${BOT_ROOT##*/}
+
+if [[ -n "${BOT_NAME}" && -n "${BOT_ROOT}" ]]; then
+
+    ./services/run   ${EO_HOST}  "
+        set -e;
+        for item in ~/.config ~/.npm ${BOT_ROOT} ;do
+            echo    \${item};
+            mkdir   -p          \${item};
+            chmod   -R  g+rwx   \${item};
+        done
+    "
+
+    ./services/run   ${EO_HOST}  "
+        echo    creating bot ${BOT_NAME} at ${BOT_ROOT} ...;
+        cd      ${BOT_ROOT};
+        yo      hubot;
+    "
+fi

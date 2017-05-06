@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+EO_SVC=rsyslog
+
+for conf_file in etc/{rsyslog.conf, sysconfig/rsyslog} ; do
+    if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
+        ./services/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
+done
+
+for conf_dir in etc/rsyslog.d ; do
+    if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
+        for conf_file in $(ls "${EO_CONF}/${EO_SVC}/${conf_dir}/") ; do
+            if [ -f "${EO_CONF}/${EO_SVC}/${conf_dir}/${conf_file}" ] ;then
+                ./services/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/${conf_file}"  "${EO_HOST}:/${conf_dir}/${conf_file}"\
+                    --exclude="dummy"
+            fi
+        done
+    fi
+done

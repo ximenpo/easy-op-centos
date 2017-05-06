@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-source  ./scripts/_init.sh
-
-ssh ${EO_SSH_OPTION}    ${EO_HOST}  ${@}
-export  -n  EO_SSH_OPTION
-unset       EO_SSH_OPTION

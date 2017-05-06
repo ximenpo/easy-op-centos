@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+./services/run   ${EO_HOST}  'rpm -q ntp >/dev/null 2>&1 || yum install -y  ntp'
+
+./services/update-conf-and-reload    ${EO_HOST}  ntpd

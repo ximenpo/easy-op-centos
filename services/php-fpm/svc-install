@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+./services/php-fpm/repo-install  ${EO_HOST}
+
+if [ -z "${1}" ]; then
+    ./services/php-fpm/pkg-install   ${EO_HOST} php-fpm  php-opcache
+else
+    ./services/php-fpm/pkg-install   ${EO_HOST} $@
+fi
+
+./services/update-conf-and-reload    ${EO_HOST}  php-fpm

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+EO_SVC=openresty
+
+CFG_DIR=/etc/openresty
+
+for conf_dir in etc/openresty/conf ; do
+    if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
+        ./services/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/"  "${EO_HOST}:/${conf_dir}/" \
+            --exclude="dummy"
+    fi
+done
+
+# start service
+./services/run       ${EO_HOST}    <<EOF
+    command -v systemctl > /dev/null 2>&1 && {
+        systemctl   enable      ${CFG_DIR}/service/openresty.service
+    }
+    command -v systemctl > /dev/null 2>&1 || {
+        cp          -f          ${CFG_DIR}/service/openresty  /etc/init.d/
+        chomod      755         /etc/init.d/openresty
+    }
+EOF

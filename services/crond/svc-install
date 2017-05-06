@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+./services/run   ${EO_HOST}  <<EOF
+#!/usr/bin/env bash
+
+set -e
+
+rpm -q  crontabs   >/dev/null 2>&1  ||   yum     install -y  crontabs cronie cronie-anacron
+
+exit    0
+EOF
+
+./services/update-conf-and-reload    ${EO_HOST}  crond

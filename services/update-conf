@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+svc=${1}
+shift
+
+if [ -x ./services/${svc}/conf-update ] ; then
+    ./services/${svc}/conf-update    "${EO_HOST}"    $@
+else
+    echo    "ERROR: [services/${svc}/conf-update] not found"
+fi

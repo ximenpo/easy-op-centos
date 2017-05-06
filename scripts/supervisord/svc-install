@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-source  ./scripts/_init.sh
-
-./scripts/run   ${EO_HOST}  'rpm -q supervisor >/dev/null 2>&1 || yum install -y  supervisor'
-
-./scripts/update-conf-and-reload    ${EO_HOST}  supervisord

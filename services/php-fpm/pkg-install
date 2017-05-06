@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+./services/run   ${EO_HOST} "yum --disablerepo='*' --enablerepo=webtatic install -y ${@}"

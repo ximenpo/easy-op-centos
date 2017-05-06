@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+script="${1}"
+
+ssh ${EO_SSH_OPTION}    ${EO_HOST} < "${script}"
+export  -n  EO_SSH_OPTION
+unset       EO_SSH_OPTION

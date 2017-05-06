@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+svc=${1}
+shift
+
+if [ -x ./services/${svc}/svc-stop ] ; then
+    ./services/${svc}/svc-stop   ${EO_HOST}  $@
+else
+    ./services/run               ${EO_HOST}  <<EOF
+#!/usr/bin/env bash
+
+set -e
+
+command -v systemctl > /dev/null 2>&1 && {
+    systemctl   is-active   ${svc}.service > /dev/null 2>&1   && {
+        systemctl   stop    ${svc}.service
+    }
+    systemctl   disable ${svc}.service
+    echo        ----------------------
+    systemctl   status  ${svc}.service      ||  true
+}
+
+command -v systemctl > /dev/null 2>&1 || {
+    chkconfig   ${svc}  off
+    service     ${svc}  stop
+    echo        ----------------------
+    service     ${svc}  status      ||  true
+}
+
+exit    0
+EOF
+fi
+
+exit    0

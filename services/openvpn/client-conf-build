@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+client=${1}
+
+if [ -d ${EO_CONF}/_secrets/openvpn/${client} ] ;then
+    rm  -rf ${EO_CONF}/_secrets/openvpn/${client}
+fi
+
+mkdir   -p  ${EO_CONF}/_secrets/openvpn/${client}
+pushd   ${EO_CONF}/_secrets/openvpn/keys/    > /dev/null 2>&1
+cp  ../../../openvpn/client.conf  ../${client}/${EO_HOST}.ovpn
+cp  ca.crt ta.key ${client}.crt ${client}.csr ${client}.key   ../${client}/
+popd    > /dev/null 2>&1

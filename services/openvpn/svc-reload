@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+./services/run   ${EO_HOST} <<'EOF'
+#!/usr/bin/env bash
+
+set -e
+
+command -v systemctl > /dev/null 2>&1 && {
+    systemctl   enable              openvpn@serverservice
+    systemctl   reload-or-restart   openvpn@server.service
+    echo        ----------------------
+    systemctl   status              openvpn@server.service      ||  true
+}
+
+command -v systemctl > /dev/null 2>&1   || {
+    chkconfig   openvpn     on
+    service     openvpn     reload
+    echo        ----------------------
+    service     openvpn     status      ||  true
+}
+
+exit    0
+EOF

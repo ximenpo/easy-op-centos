@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+EO_SVC=openvpn
+
+for conf_file in etc/openvpn/server.conf ; do
+    if [ -f "${EO_CONF}/${EO_SVC}/${conf_file}" ] ;then
+        ./services/sync  "${EO_CONF}/${EO_SVC}/${conf_file}"  "${EO_HOST}:/${conf_file}"
+    fi
+done
+
+easyrsa_dir=
+for d in $(./services/run ${EO_HOST} find /usr/share/easy-rsa/ -mindepth 1 -maxdepth 1 -type d) ;do
+    easyrsa_dir=$d
+done
+if [ "$easyrsa_dir" = "" ] ;then
+    echo    ERROR: easy-rsa directory not found
+else
+    ./services/sync  ${EO_CONF}/${EO_SVC}/easy-rsa/vars    ${EO_HOST}:$easyrsa_dir/
+fi

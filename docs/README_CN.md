@@ -77,87 +77,87 @@ Usage:  source _init.sh [default_host] [default_group]
 
 调用rsync同步文件或目录
 ```
-./scripts/sync	servers/myzoo.cn/etc/hosts	myzoo.cn:/etc/hosts
+./services/sync	servers/myzoo.cn/etc/hosts	myzoo.cn:/etc/hosts
 ```
 
 #### run
 
 在服务器上执行命令
 ```
-./scripts/run	myzoo.cn	echo 'hello~'
+./services/run	myzoo.cn	echo 'hello~'
 #或使用缺省服务器
-./scripts/run echo 'hello~'
+./services/run echo 'hello~'
 ```
 
 #### run-script
 
 在服务器上执行命令
 ```
-./scripts/run-script	myzoo.cn	files/echo-helloworld.sh
+./services/run-script	myzoo.cn	files/echo-helloworld.sh
 #或使用缺省服务器
-./scripts/run-script	files/echo-helloworld.sh
+./services/run-script	files/echo-helloworld.sh
 ```
 
 #### install
 
 在服务器上安装指定服务，可带其他参数
 ```
-./scripts/install	myzoo.cn	openvpn
+./services/install	myzoo.cn	openvpn
 #或使用缺省服务器
-./scripts/install	openvpn
+./services/install	openvpn
 ```
 
 #### reload
 
 在服务器上重启指定服务
 ```
-./scripts/reload	myzoo.cn	openvpn
+./services/reload	myzoo.cn	openvpn
 #或使用缺省服务器
-./scripts/reload	openvpn
+./services/reload	openvpn
 ```
 
 #### stop
 
 在服务器上停止指定服务
 ```
-./scripts/stop		myzoo.cn	openvpn
+./services/stop		myzoo.cn	openvpn
 #或使用缺省服务器
-./scripts/stop		openvpn
+./services/stop		openvpn
 ```
 
 #### update-conf
 
 更新服务配置
 ```
-./scripts/update-conf		myzoo.cn	openvpn
+./services/update-conf		myzoo.cn	openvpn
 #或使用缺省服务器
-./scripts/update-conf		openvpn
+./services/update-conf		openvpn
 ```
 
 #### update-conf-and-reload
 
 更新服务配置并重启服务
 ```
-./scripts/update-conf-and-reload		myzoo.cn	openvpn
+./services/update-conf-and-reload		myzoo.cn	openvpn
 #或使用缺省服务器
-./scripts/update-conf-and-reload		openvpn
+./services/update-conf-and-reload		openvpn
 ```
 
-### scripts/crond
+### services/crond
 
 | 脚本          | 功能     | 备注   |
 | ----------- | ------ | ---- |
 | conf-update | 更新配置文件 |      |
 | svc-install | 服务安装脚本 |      |
 
-### scripts/docker
+### services/docker
 
 | 脚本          | 功能     | 备注   |
 | ----------- | ------ | ---- |
 | conf-update | 更新配置文件 |      |
 | svc-install | 服务安装脚本 |      |
 
-### scripts/etc
+### services/etc
 
 与etc目录配置相关的脚本
 
@@ -166,14 +166,14 @@ Usage:  source _init.sh [default_host] [default_group]
 | hosts-update      | 更新`hosts`文件                    |      |
 | tcpwrapper-update | 更新`hosts.allow`和`hosts.deny`文件 |      |
 
-### scripts/firewalld
+### services/firewalld
 
 | 脚本          | 功能     | 备注   |
 | ----------- | ------ | ---- |
 | conf-update | 更新配置文件 |      |
 | svc-install | 服务安装脚本 |      |
 
-### scripts/gogs
+### services/gogs
 
 | 脚本          | 功能            | 备注   |
 | ----------- | ------------- | ---- |
@@ -181,28 +181,28 @@ Usage:  source _init.sh [default_host] [default_group]
 | conf-update | 更新配置文件        |      |
 | svc-install | 服务安装脚本        |      |
 
-### scripts/iptables
+### services/iptables
 
 | 脚本          | 功能     | 备注   |
 | ----------- | ------ | ---- |
 | conf-update | 更新配置文件 |      |
 | svc-install | 服务安装脚本 |      |
 
-### scripts/ntpd
+### services/ntpd
 
 | 脚本          | 功能     | 备注   |
 | ----------- | ------ | ---- |
 | conf-update | 更新配置文件 |      |
 | svc-install | 服务安装脚本 |      |
 
-### scripts/openresty
+### services/openresty
 
 | 脚本          | 功能     | 备注   |
 | ----------- | ------ | ---- |
 | conf-update | 更新配置文件 |      |
 | svc-install | 服务安装脚本 |      |
 
-### scripts/php-fpm
+### services/php-fpm
 
 | 脚本           | 功能              | 备注   |
 | ------------ | --------------- | ---- |
@@ -212,7 +212,7 @@ Usage:  source _init.sh [default_host] [default_group]
 | repo-install | 安装webtatic的yum库 |      |
 | svc-install  | 服务安装脚本          |      |
 
-### scripts/openvpn
+### services/openvpn
 
 与OpenVPN服务相关的脚本
 
@@ -227,7 +227,7 @@ Usage:  source _init.sh [default_host] [default_group]
 | svc-reload       | 服务重启脚本                                   |      |
 | svc-stop         | 服务关闭脚本                                   |      |
 
-### scripts/sshd
+### services/sshd
 
 与sshd服务配置相关的脚本
 

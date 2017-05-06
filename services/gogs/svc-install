@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+DOWNLOAD_URL=${1:-http://7d9nal.com2.z0.glb.qiniucdn.com/gogs_v0.9.113_linux_amd64.tar.gz}
+DATA_DIR=${2:-/data/gogs}
+
+INSTALL_ROOT=/home/git
+
+DWONLOAD_FILE=${DOWNLOAD_URL##*/}
+
+./services/run   ${EO_HOST}  <<EOF
+set     -e
+
+yum     install -y  git
+id      -u      git >/dev/null 2>&1  ||  useradd -m git
+mkdir   -p      "${INSTALL_ROOT}"
+mkdir   -p      "${DATA_DIR}/data"
+mkdir   -p      "${DATA_DIR}/repo"
+mkdir   -p      "${DATA_DIR}/log"
+chown   -fR     git:git             "${DATA_DIR}"
+cd              "${INSTALL_ROOT}"
+curl    -o      "${DWONLOAD_FILE}"  "${DOWNLOAD_URL}"
+rm      -rf     "${INSTALL_ROOT}/gogs"
+tar     -zxf    "${DWONLOAD_FILE}"
+EOF
+
+./services/update-conf-and-reload    ${EO_HOST}  gogs

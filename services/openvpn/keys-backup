@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+easyrsa_dir=
+for d in $(./services/run ${EO_HOST} find /usr/share/easy-rsa/ -mindepth 1 -maxdepth 1 -type d) ;do
+    easyrsa_dir=$d
+done
+if [ "$easyrsa_dir" = "" ] ;then
+    echo    ERROR: easy-rsa directory not found
+else
+    mkdir   -p      ${EO_CONF}/_secrets/openvpn/keys/
+    ./services/sync  ${EO_HOST}:$easyrsa_dir/keys/  ${EO_CONF}/_secrets/openvpn/keys/
+    ./services/run   ${EO_HOST} "cd ${easyrsa_dir}; source vars;./clean-all"
+fi

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+EO_SVC=firewalld
+
+for conf_dir in etc/firewalld ; do
+    if [ -d "${EO_CONF}/${EO_SVC}/${conf_dir}" ] ;then
+        ./services/sync  "${EO_CONF}/${EO_SVC}/${conf_dir}/"  "${EO_HOST}:/${conf_dir}/" \
+            --exclude="dummy"
+    fi
+done

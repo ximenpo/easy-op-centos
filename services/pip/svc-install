@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+./services/run       ${EO_HOST}    <<'EOF'
+    set     -e
+    command -v      pip >/dev/null 2>&1 ||  {
+        yum install -y  python-pip
+    }
+    command -v      pip >/dev/null 2>&1 ||  {
+        exit    1
+    }
+    exit    0
+EOF
+
+./services/update        ${EO_HOST}  pip

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+./services/run       ${EO_HOST}    <<'EOF'
+    set     -e
+    command -v      docker-compose  >/dev/null 2>&1 ||  {
+        yum     list    installed   'python*-pip'   ||  yum install -y python-pip
+        pip     install docker-compose
+    }
+    command -v      docker-compose  >/dev/null 2>&1 ||  {
+        exit    1
+    }
+    exit    0
+EOF
+
+./services/update-conf   ${EO_HOST}  docker-compose

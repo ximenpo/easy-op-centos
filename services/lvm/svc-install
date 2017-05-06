@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+./services/run   ${EO_HOST}  '
+modprobe dm_mod
+lsmod | grep dm_mod >/dev/null 2>&1 || yum install -y  device-mapper
+rpm -q lvm2 >/dev/null 2>&1         || yum install -y  lvm2
+'
+
+./services/update-conf-and-reload    ${EO_HOST}  lvm

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+BOT_ROOT=${1}
+BOT_NAME=${BOT_ROOT##*/}
+
+./services/install   ${EO_HOST}  npm
+
+./services/run       ${EO_HOST}  <<EOF
+set -e
+command -v  npm > /dev/null 2>&1 && {
+    mkdir   -p      ~/.config
+    chmod   g+rwx   ~/.config
+
+    mkdir   -p      ~/.npm
+    chmod   g+rwx   ~/.npm
+
+    npm update  -g  n
+    npm install -g  coffee-script yo generator-hubot
+}
+EOF
+
+./services/update-conf   ${EO_HOST}  hubot

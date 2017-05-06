@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+source  ./services/_init.sh
+
+svc=${1}
+shift
+
+if [ -x ./services/${svc}/svc-install ] ; then
+    ./services/${svc}/svc-install        "${EO_HOST}"    $@
+else
+    ./services/run                       "${EO_HOST}"    <<EOF
+    rpm -q ${svc} >/dev/null 2>&1  ||yum install -y ${svc}
+EOF
+    ./services/update-conf-and-reload    "${EO_HOST}"    ${svc}  $@
+fi
